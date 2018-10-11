@@ -14,3 +14,42 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// user
+Route::group(['prefix' => 'user'], function() {
+    // ページの保護（auth）
+    Route::group(['middleware' => 'auth'], function(){
+        // ユーザープロファイル
+        Route::get('/profile',[
+            'uses' => 'UserController@getProfile',
+            'as' => 'user.profile'
+        ]);
+        // ログアウト
+        Route::get('/logout',[
+            'uses' => 'UserController@getLogout',
+            'as' => 'user.logout'
+        ]);
+    });
+
+    // ページの保護（guest）
+    Route::group(['middleware' => 'guest'], function(){
+        // 登録
+        Route::get('/signup',[
+            'uses' => 'UserController@getSignup',
+            'as' => 'user.signup'
+        ]);
+        Route::post('/signup',[
+            'uses' => 'UserController@postSignup',
+            'as' => 'user.signup'
+        ]);
+        // ログイン
+        Route::get('/signin',[
+            'uses' => 'UserController@getSignin',
+            'as' => 'user.signin'
+        ]);
+        Route::post('/signin',[
+            'uses' => 'UserController@postSignin',
+            'as' => 'user.signin'
+        ]);
+    });
+});
