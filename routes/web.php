@@ -17,8 +17,7 @@ Route::get('/', function () {
 
 // user
 Route::group(['prefix' => 'user'], function() {
-    // ページの保護（auth）
-    Route::group(['middleware' => 'auth'], function(){
+
         // ユーザープロファイル
         Route::get('/profile',[
             'uses' => 'UserController@getProfile',
@@ -29,10 +28,7 @@ Route::group(['prefix' => 'user'], function() {
             'uses' => 'UserController@getLogout',
             'as' => 'user.logout'
         ]);
-    });
 
-    // ページの保護（guest）
-    Route::group(['middleware' => 'guest'], function(){
         // 登録
         Route::get('/signup',[
             'uses' => 'UserController@getSignup',
@@ -51,5 +47,8 @@ Route::group(['prefix' => 'user'], function() {
             'uses' => 'UserController@postSignin',
             'as' => 'user.signin'
         ]);
-    });
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
