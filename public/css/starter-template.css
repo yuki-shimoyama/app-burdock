@@ -42,3 +42,9 @@ body {
 .container .text-muted {
     margin: 20px 0;
 }
+.form-group{
+    overflow: hidden;
+}
+h3{
+    margin-bottom: 40px;
+}

@@ -48,6 +48,8 @@ Route::group(['prefix' => 'user'], function() {
             'as' => 'user.signin'
         ]);
 });
+// StaticTemplate
+Route::get('/template', 'TemplateController@index');
 
 Auth::routes();
 
