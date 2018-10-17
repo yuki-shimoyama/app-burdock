@@ -19,7 +19,7 @@
 </head>
 <body>
     @include('partials.My_header')
-    <div class="container">
+    <div class="container py-4">
         @yield('content')
     </div><!-- /.container -->
 

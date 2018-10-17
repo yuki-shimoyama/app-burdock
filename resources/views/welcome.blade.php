@@ -1,4 +1,4 @@
-@extends('layouts.My_master_auth')
+@extends('layouts.app')
 
 @section('styles')
     <!-- Fonts -->
