@@ -1,4 +1,4 @@
-@extends('layouts.My_master_auth')
+{{-- @extends('layouts.My_master_auth')
 
 @section('content')
     <div class="row">
@@ -46,10 +46,10 @@
             </form>
         </div>
     </div>
-@endsection
+@endsection --}}
 
 
-{{-- @extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -119,4 +119,4 @@
         </div>
     </div>
 </div>
-@endsection --}}
+@endsection
