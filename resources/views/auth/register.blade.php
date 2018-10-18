@@ -55,9 +55,9 @@
             {{ csrf_field() }}
         </form>
     </div>
-@endsection
+@endsection --}}
 
- --}}
+
 @extends('layouts.app')
 
 @section('content')
