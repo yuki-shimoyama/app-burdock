@@ -23,7 +23,8 @@ class PostController extends Controller
 
         // 3. latestメソッドがおすすめ
         $posts = Post::latest()->get();
-
+        // Debugbarを使ってみる
+        \Debugbar::info($posts);
         return view('posts.index', ['posts' => $posts]);
     }
 
