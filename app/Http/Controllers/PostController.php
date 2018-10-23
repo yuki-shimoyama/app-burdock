@@ -22,7 +22,8 @@ class PostController extends Controller
         // $posts = Post::orderByDesc('created_at')->get();
 
         // 3. latestメソッドがおすすめ
-        $posts = Post::latest()->get();
+        // ページネーション（1ページに5件表示）
+        $posts = Post::latest()->paginate(5);
         // Debugbarを使ってみる
         \Debugbar::info($posts);
         return view('posts.index', ['posts' => $posts]);

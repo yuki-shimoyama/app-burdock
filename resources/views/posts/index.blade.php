@@ -29,5 +29,7 @@
             </tbody>
         </table>
     </div>
+    {{-- ページネーション --}}
+    {{ $posts->links() }}
 </div>
 @endsection

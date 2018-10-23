@@ -23,5 +23,7 @@
             </tbody>
         </table>
     </div>
+    {{-- ページネーション --}}
+    {{ $users->links() }}
 </div>
 @endsection
