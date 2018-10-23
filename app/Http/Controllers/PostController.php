@@ -8,6 +8,15 @@ use App\Post; // Postモデルをインポートする
 class PostController extends Controller
 {
     /**
+     * 各アクションの前に実行させるミドルウェア
+     */
+    public function __construct()
+    {
+        // ログインしなくても閲覧だけはできるようにexcept()で指定します。
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -52,6 +61,8 @@ class PostController extends Controller
         $post = new Post;
         $post->title = $request->title;
         $post->body = $request->body;
+        // 記事作成時に著者のIDを保存する
+        $post->user_id = $request->user()->id;
         $post->save();
         return redirect('posts/'.$post->id);
     }

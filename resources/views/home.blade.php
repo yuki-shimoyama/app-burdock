@@ -1,5 +1,7 @@
-@extends('layouts.app')
-
+@php
+    $title = __('Home');
+@endphp
+@extends('layouts.my')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -14,7 +16,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    {{ __('You are logged in!') }}
                 </div>
             </div>
         </div>

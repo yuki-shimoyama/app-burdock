@@ -9,6 +9,15 @@ use App\User;
 class UserController extends Controller
 {
     /**
+     * 各アクションの前に実行させるミドルウェア
+     */
+    public function __construct()
+    {
+        // ログインしなくても閲覧だけはできるようにexcept()で指定します。
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
