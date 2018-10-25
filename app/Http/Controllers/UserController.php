@@ -14,7 +14,10 @@ class UserController extends Controller
     public function __construct()
     {
         // ログインしなくても閲覧だけはできるようにexcept()で指定します。
-        $this->middleware('auth')->except(['index', 'show']);
+        // $this->middleware('auth')->except(['index', 'show']);
+        // 登録完了していなくても、退会だけはできるようにする
+        $this->middleware('auth')->only('destroy');
+        $this->middleware('verified')->except(['index', 'show', 'destroy']);
     }
 
     /**

@@ -13,7 +13,8 @@ class PostController extends Controller
     public function __construct()
     {
         // ログインしなくても閲覧だけはできるようにexcept()で指定します。
-        $this->middleware('auth')->except(['index', 'show']);
+        // $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('verified')->except(['index', 'show']);
     }
 
     /**
