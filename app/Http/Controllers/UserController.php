@@ -87,6 +87,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
+        // update, destroyでも同様に
+        $this->authorize('edit', $user);
         return view('users.edit', ['user' => $user]);
     }
 
@@ -102,6 +104,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        $this->authorize('edit', $user);
         $user->name = $request->name;
         $user->save();
         return redirect('users/'.$user->id);
@@ -116,6 +119,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+        $this->authorize('edit', $user);
         $user->delete();
         return redirect('users');
     }
