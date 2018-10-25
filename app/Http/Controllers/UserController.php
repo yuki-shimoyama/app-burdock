@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // コントローラ内で頻繁に使うことになるので、モデルをインポートしておきます。
 use App\User;
+use App\Http\Requests\StoreUser;
 
 class UserController extends Controller
 {
@@ -47,12 +48,12 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUser $request
      * @return \Illuminate\Http\Response
      */
     // 実際の追加処理
     // 終わったら、作ったばかりのユーザーのページへ移動
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
         //
         $user = new User;
@@ -105,6 +106,10 @@ class UserController extends Controller
     {
         //
         $this->authorize('edit', $user);
+        // name欄だけを検査するため、元のStoreUserクラス内のバリデーション・ルールからname欄のルールだけを取り出す。
+        $request->validate([
+            'name' => (new StoreUser())->rules()['name']
+        ]);
         $user->name = $request->name;
         $user->save();
         return redirect('users/'.$user->id);
