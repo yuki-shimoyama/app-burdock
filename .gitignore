@@ -13,3 +13,5 @@ yarn-error.log
 .env
 .phpunit.result.cache
 database.sqlite
+# テストのカバレッジを保存する場所
+/coverage
