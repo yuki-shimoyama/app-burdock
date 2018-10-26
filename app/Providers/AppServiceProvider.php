@@ -16,6 +16,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        // 本番環境(Heroku)でhttpsを強制する
+        if (\App::environment('production')) {
+            \URL::forceScheme('https');
+        }
         // MySQL5.7.7、またはMariaDB10.2.2より古い場合に必要です。
         Schema::defaultStringLength(191);
     }
