@@ -13,9 +13,3 @@ yarn-error.log
 .env
 .phpunit.result.cache
 database.sqlite
-# テストのカバレッジを保存する場所
-/coverage
-# Duskのテストでエラーがあると .env が壊れる場合があるため
-# 設定ファイルを手動でコピーして保存しておく
-.env.mycopy
-.env.dusk.local
