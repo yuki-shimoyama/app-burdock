@@ -31,13 +31,13 @@
         <dd class="col-md-10">{{ $user->email }}</dd>
     </dl>
     {{-- ユーザーの記事一覧 --}}
-    <h2>{{ __('Posts') }}</h2>
+    <h2>{{ __('Projects') }}</h2>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>{{ __('Title') }}</th>
-                    <th>{{ __('Body') }}</th>
+                    <th>{{ __('Project Name') }}</th>
+                    <th>{{ __('Git URL') }}</th>
                     <th>{{ __('Created') }}</th>
                     <th>{{ __('Updated') }}</th>
 

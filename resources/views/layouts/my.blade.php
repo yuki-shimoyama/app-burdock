@@ -29,7 +29,7 @@
                     <ul class="navbar-nav mr-auto">
                         {{-- 「記事」と「ユーザー」へのリンク --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('posts') }}">{{ __('Posts') }}</a>
+                            <a class="nav-link" href="{{ url('posts') }}">{{ __('Projects') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('users') }}">{{ __('Users') }}</a>
@@ -41,7 +41,7 @@
                         {{-- 投稿ボタン --}}
                         <li class="nav-item">
                             <a href="{{ url('posts/create') }}" id="new-post" class="btn btn-success">
-                                {{ __('New Post') }}
+                                {{ __('Create Project') }}
                             </a>
                         </li>
 
@@ -113,5 +113,6 @@
 
     {{-- JavaScript --}}
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('script')
 </body>
 </html>

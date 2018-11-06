@@ -66,7 +66,19 @@ class PostController extends Controller
         // 記事作成時に著者のIDを保存する
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect('posts/' . $post->id)->with('my_status', __('Posted new article.'));
+
+        $project_name = 'project_'.$post->title;
+
+        $current_dir = realpath('.');
+        chdir('..');
+        mkdir($project_name);
+        chdir($project_name);
+        shell_exec('curl -sS https://getcomposer.org/installer | php');
+        shell_exec('php composer.phar create-project pickles2/preset-get-start-pickles2');
+        chdir('preset-get-start-pickles2');
+        chdir($current_dir);
+
+        return redirect('posts/' . $post->id)->with('my_status', __('Created new Project.'));
     }
 
     /**
@@ -109,7 +121,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->body = $request->body;
         $post->save();
-        return redirect('posts/' . $post->id)->with('my_status', __('Updated an article.'));
+        return redirect('posts/' . $post->id)->with('my_status', __('Updated an Project.'));
     }
 
     /**
@@ -123,6 +135,6 @@ class PostController extends Controller
         //
         $this->authorize('edit', $post);
         $post->delete();
-        return redirect('posts')->with('my_status', __('Deleted an article.'));
+        return redirect('posts')->with('my_status', __('Deleted an Project.'));
     }
 }

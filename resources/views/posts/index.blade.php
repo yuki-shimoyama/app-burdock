@@ -1,5 +1,5 @@
 @php
-    $title = __('Posts');
+    $title = __('Projects');
 @endphp
 @extends('layouts.my')
 @section('content')
@@ -10,8 +10,8 @@
             <thead>
                 <tr>
                     <th>{{ __('Author') }}</th>
-                    <th>{{ __('Title') }}</th>
-                    <th>{{ __('Body') }}</th>
+                    <th>{{ __('Project Name') }}</th>
+                    <th>{{ __('Git URL') }}</th>
                     <th>{{ __('Created') }}</th>
                     <th>{{ __('Updated') }}</th>
                 </tr>

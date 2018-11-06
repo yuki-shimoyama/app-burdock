@@ -1,5 +1,5 @@
 @php
-    $title = __('Create Post');
+    $title = __('Create Project');
 @endphp
 @extends('layouts.my')
 @section('content')
@@ -9,7 +9,7 @@
         @csrf
         @method('POST')
         <div class="form-group">
-            <label for="title">{{ __('Title') }}</label>
+            <label for="title">{{ __('Project Name') }}</label>
             <input id="title" type="text" class="form-control @if ($errors->has('title')) is-invalid @endif" name="title" value="{{ old('title') }}" required autofocus>
                 @if ($errors->has('title'))
                     <span class="invalid-feedback" role="alert">
@@ -18,8 +18,8 @@
                 @endif
         </div>
         <div class="form-group">
-            <label for="body">{{ __('Body') }}</label>
-            <textarea id="body" class="form-control @if ($errors->has('body')) is-invalid @endif" name="body" rows="8" required>{{ old('body') }}</textarea>
+            <label for="body">{{ __('Git URL') }}</label>
+            <input id="body" type="text" class="form-control @if ($errors->has('body')) is-invalid @endif" name="body"  value="{{ old('body') }}">
                 @if ($errors->has('body'))
                     <span class="invalid-feedback" role="alert">
                         {{ $errors->first('body') }}

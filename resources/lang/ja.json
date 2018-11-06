@@ -17,8 +17,8 @@
     "Posts": "記事",
     "Post": "記事",
     "Create Post": "記事を投稿する",
-    "Author": "投稿者",
-    "Title": "題名",
+    "Author": "作成者",
+    "Title": "タイトル",
     "Body": "本文",
     "Created": "作成時刻",
     "Updated": "更新時刻",
@@ -27,6 +27,15 @@
     "Posted new article.": "記事を投稿しました。",
     "Updated an article.": "記事を更新しました。",
     "Deleted an article.": "記事を削除しました。",
+
+    "Created new Project.": "プロジェクトを作成しました。",
+    "Updated an Project.": "プロジェクトを更新しました。",
+    "Deleted an Project.": "プロジェクトを削除しました。",
+
+    "Create Project": "プロジェクトを作成する",
+    "Project Name": "プロジェクト名",
+    "Projects": "プロジェクト一覧",
+    "Project": "プロジェクト",
 
 
     "Created new user.": "ユーザーを追加しました。",
@@ -39,7 +48,7 @@
     "Are you sure to delete?": "本当に削除してもよろしいですか?",
 
 
-    "Users": "ユーザー",
+    "Users": "ユーザー一覧",
     "User": "ユーザー",
     "Profile": "プロフィール",
     "Name": "ユーザー名",
@@ -85,6 +94,10 @@
     "click here to request another.": "こちらをクリックして再送信してください。",
     "Please click the link below to verify your email address.": "下記のリンクをクリックして、このメールアドレスでユーザー登録することを確認してください。",
     "If you did not create an account, no further action is required.": "ユーザー登録に心当たりがない場合は、このまま削除してください。",
-    "Verify Email Address": "このアドレスで登録する"
+    "Verify Email Address": "このアドレスで登録する",
+
+    "Registration has been completed.": "登録が完了しました。",
+    "Update is completed.": "更新が完了しました。",
+    "Deletion is complete.": "削除が完了しました。"
 
 }

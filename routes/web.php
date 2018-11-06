@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Contracts\Console\Kernel;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
