@@ -67,17 +67,33 @@ class PostController extends Controller
         $post->user_id = $request->user()->id;
         $post->save();
 
+        $bd_data_dir = env('BD_DATA_DIR');
         $project_name = 'project_'.$post->title;
+        $projects_name = 'projects';
+        $branchs_name = 'branches';
 
-        $current_dir = realpath('.');
-        chdir('..');
-        mkdir($project_name);
+        if (!is_dir($bd_data_dir)) {
+            mkdir($bd_data_dir);
+        }
+        chdir($bd_data_dir);
+
+        if (!is_dir($projects_name)) {
+            mkdir($projects_name);
+        }
+        chdir($projects_name);
+
+        if (!is_dir($project_name)) {
+            mkdir($project_name);
+        }
         chdir($project_name);
-        shell_exec('curl -sS https://getcomposer.org/installer | php');
-        shell_exec('php composer.phar create-project pickles2/preset-get-start-pickles2');
-        chdir('preset-get-start-pickles2');
-        chdir($current_dir);
 
+        if (!is_dir($branchs_name)) {
+            mkdir($branchs_name);
+        }
+        chdir($branchs_name);
+
+        $path_composer = realpath(__DIR__.'/../../common/composer/composer.phar');
+        shell_exec($path_composer . ' create-project pickles2/preset-get-start-pickles2 ./master');
         return redirect('posts/' . $post->id)->with('my_status', __('Created new Project.'));
     }
 
