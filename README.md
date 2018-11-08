@@ -65,7 +65,7 @@ DB_PASSWORD=
 次の例は、Users > hoge > fuga 配下にある path_to_project_dir フォルダにプロジェクトを作成したい場合の設定です。
 
 ```
-/Users/hoge/fuga/path_to_project_dir
+BD_DATA_DIR=/Users/hoge/fuga/path_to_project_dir
 ```
 
 #### その他

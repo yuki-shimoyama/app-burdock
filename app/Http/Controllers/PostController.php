@@ -71,6 +71,8 @@ class PostController extends Controller
         $project_name = 'project_'.$post->title;
         $projects_name = 'projects';
         $branchs_name = 'branches';
+        $branch_name = 'master';
+        $git_url = $post->body;
 
         if (!is_dir($bd_data_dir)) {
             mkdir($bd_data_dir);
@@ -93,7 +95,15 @@ class PostController extends Controller
         chdir($branchs_name);
 
         $path_composer = realpath(__DIR__.'/../../common/composer/composer.phar');
-        shell_exec($path_composer . ' create-project pickles2/preset-get-start-pickles2 ./master');
+        shell_exec($path_composer . ' create-project pickles2/preset-get-start-pickles2 ./' . $branch_name);
+        chdir($branch_name);
+
+        shell_exec('git init');
+        shell_exec('git add -A');
+        shell_exec('git commit -m "Create project"');
+        shell_exec('git remote add origin ' . $git_url);
+        shell_exec('git push origin master');
+
         return redirect('posts/' . $post->id)->with('my_status', __('Created new Project.'));
     }
 
