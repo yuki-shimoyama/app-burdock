@@ -3,7 +3,7 @@ PHPサーバー+ブラウザ上で動作する Pickles 2 のGUIツール。
 
 ## インストール
 
-### 1. app-burdock のと 依存ライブラリをインストールする
+### 1. app-burdock の依存ライブラリをインストールする
 
 ```
 $ git clone https://github.com/pickles2/app-burdock.git
@@ -57,6 +57,15 @@ DB_PORT=
 DB_DATABASE=database.sqlite
 DB_USERNAME=
 DB_PASSWORD=
+```
+
+### プロジェクトを作成するディレクトリパスの設定
+
+プロジェクトは任意のディレクトリにインストールすることができます。
+次の例は、Users > hoge > fuga 配下にある path_to_project_dir フォルダにプロジェクトを作成したい場合の設定です。
+
+```
+/Users/hoge/fuga/path_to_project_dir
 ```
 
 #### その他
