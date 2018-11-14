@@ -1,12 +1,12 @@
 <?php
-if (! function_exists('my_locale_url')) {
+if (! function_exists('locale_url')) {
     /**
      * 言語切り替え用のURLを生成する
      *
      * @param string $locale 使用言語
      * @return string 言語切り替え用のURL
      */
-    function my_locale_url($locale)
+    function locale_url($locale)
     {
         // URLをパースする
         $urlParsed = parse_url(Request::fullUrl());

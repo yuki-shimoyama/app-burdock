@@ -51,11 +51,6 @@ class ProjectController extends Controller
         return view('projects.create');
     }
 
-    private function getProjectPath($project_name, $branch_name) {
-        $project_path = env('BD_DATA_DIR') . "/" . "projects" . "/" . "project_" . $project_name . "/" . "branches" . "/" . $branch_name;
-        return $project_path;
-    }
-
     /**
      * Store a newly created resource in storage.
      * 新しい記事を保存する
@@ -101,7 +96,7 @@ class ProjectController extends Controller
         shell_exec($path_composer . ' create-project pickles2/preset-get-start-pickles2 ./' . $branch_name);
         chdir($branch_name);
 
-        $project_path = $this->getProjectPath($project_name, $branch_name);
+        $project_path = getProjectPath($project_name, $branch_name);
         $project->project_path = $project_path;
 
         // 記事作成時に著者のIDを保存する
