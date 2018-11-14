@@ -98,6 +98,16 @@
 
     "Registration has been completed.": "登録が完了しました。",
     "Update is completed.": "更新が完了しました。",
-    "Deletion is complete.": "削除が完了しました。"
+    "Deletion is complete.": "削除が完了しました。",
 
+
+    "Project Path": "プロジェクトパス",
+    "Home Directory": "ホームディレクトリ",
+    "Entry Script": "エントリースクリプト",
+    "Git URL": "Git URL",
+    "Contents": "コンテンツ",
+    "Edit Contents": "コンテンツを編集する",
+    "Edit Sitemap": "サイトマップを編集する",
+    "To Publish": "パブリッシュする",
+    "Run": "実行"
 }

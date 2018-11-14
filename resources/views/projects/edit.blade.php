@@ -1,16 +1,16 @@
 @php
-    $title = __('Edit') . ': ' . $post->title;
+    $title = __('Edit') . ': ' . $project->title;
 @endphp
 @extends('layouts.my')
 @section('content')
 <div class="container">
     <h1>{{ $title }}</h1>
-    <form action="{{ url('posts/'.$post->id) }}" method="post">
+    <form action="{{ url('projects/'.$project->id) }}" method="post">
         @csrf
         @method('PUT')
         <div class="form-group">
             <label for="title">{{ __('Project Name') }}</label>
-            <input id="title" type="text" class="form-control @if ($errors->has('title')) is-invalid @endif" name="title" value="{{ old('title', $post->title) }}" required autofocus>
+            <input id="title" type="text" class="form-control @if ($errors->has('title')) is-invalid @endif" name="title" value="{{ old('title', $project->title) }}" required autofocus>
                 @if ($errors->has('title'))
                     <span class="invalid-feedback" role="alert">
                         {{ $errors->first('title') }}
@@ -18,11 +18,11 @@
                 @endif
         </div>
         <div class="form-group">
-            <label for="body">{{ __('Git URL') }}</label>
-            <input id="body" type="text" class="form-control @if ($errors->has('body')) is-invalid @endif" name="body" value="{{ old('body', $post->body) }}">
-                @if ($errors->has('body'))
+            <label for="git_url">{{ __('Git URL') }}</label>
+            <input id="git_url" type="text" class="form-control @if ($errors->has('git_url')) is-invalid @endif" name="git_url" value="{{ old('git_url', $project->git_url) }}">
+                @if ($errors->has('git_url'))
                     <span class="invalid-feedback" role="alert">
-                        {{ $errors->first('body') }}
+                        {{ $errors->first('git_url') }}
                     </span>
                 @endif
         </div>

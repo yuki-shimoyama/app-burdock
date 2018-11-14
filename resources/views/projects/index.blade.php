@@ -17,25 +17,25 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($posts as $post)
+            @foreach ($projects as $project)
                 <tr>
                     <td>
-                        <a href="{{ url('users/' . $post->user->id) }}">
-                            {{ $post->user->name }}
+                        <a href="{{ url('users/' . $project->user->id) }}">
+                            {{ $project->user->name }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ url('posts/'.$post->id) }}">{{ $post->title }}</a>
+                        <a href="{{ url('projects/'.$project->id) }}">{{ $project->title }}</a>
                     </td>
-                    <td>{{ $post->body }}</td>
-                    <td>{{ $post->created_at }}</td>
-                    <td>{{ $post->updated_at }}</td>
+                    <td>{{ $project->git_url }}</td>
+                    <td>{{ $project->created_at }}</td>
+                    <td>{{ $project->updated_at }}</td>
                  </tr>
             @endforeach
             </tbody>
         </table>
     </div>
     {{-- ページネーション --}}
-    {{ $posts->links() }}
+    {{ $projects->links() }}
 </div>
 @endsection

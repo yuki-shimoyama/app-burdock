@@ -8,17 +8,17 @@
 
     {{-- 編集・削除ボタン --}}
     @can('edit', $user)
-    <div>
-        <a href="{{ url('users/'.$user->id.'/edit') }}" class="btn btn-primary">
-            {{ __('Edit') }}
-        </a>
-        {{-- 削除ボタンは後で正式なものに置き換えます --}}
-        @component('components.btn-del')
-            @slot('controller', 'users')
-            @slot('id', $user->id)
-            @slot('name', $user->title)
-        @endcomponent
-    </div>
+        <div>
+            <a href="{{ url('users/'.$user->id.'/edit') }}" class="btn btn-primary">
+                {{ __('Edit') }}
+            </a>
+            {{-- 削除ボタンは後で正式なものに置き換えます --}}
+            @component('components.btn-del')
+                @slot('controller', 'users')
+                @slot('id', $user->id)
+                @slot('name', $user->title)
+            @endcomponent
+        </div>
     @endcan
 
     {{-- ユーザー1件の情報 --}}
@@ -42,37 +42,39 @@
                     <th>{{ __('Updated') }}</th>
 
                     {{-- 記事の編集・削除ボタンのカラム --}}
-                    @can('edit', $user) <th></th> @endcan
+                    @can('edit', $user)
+                        <th></th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
-                @foreach ($user->posts as $post)
+                @foreach ($user->projects as $project)
                     <tr>
                         <td>
-                            <a href="{{ url('posts/' . $post->id) }}">
-                                {{ $post->title }}
+                            <a href="{{ url('projects/' . $project->id) }}">
+                                {{ $project->title }}
                             </a>
                         </td>
-                        <td>{{ $post->body }}</td>
-                        <td>{{ $post->created_at }}</td>
-                        <td>{{ $post->updated_at }}</td>
+                        <td>{{ $project->git_url }}</td>
+                        <td>{{ $project->created_at }}</td>
+                        <td>{{ $project->updated_at }}</td>
                         @can('edit', $user)
-                        <td nowrap>
-                            <a href="{{ url('posts/' . $post->id . '/edit') }}" class="btn btn-primary">
-                                {{ __('Edit') }}
-                            </a>
-                            @component('components.btn-del')
-                                @slot('controller', 'posts')
-                                @slot('id', $post->id)
-                                @slot('name', $post->title)
-                            @endcomponent
-                        </td>
+                            <td nowrap>
+                                <a href="{{ url('projects/' . $project->id . '/edit') }}" class="btn btn-primary">
+                                    {{ __('Edit') }}
+                                </a>
+                                @component('components.btn-del')
+                                    @slot('controller', 'projects')
+                                    @slot('id', $project->id)
+                                    @slot('name', $project->title)
+                                @endcomponent
+                            </td>
                         @endcan
                      </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-    {{ $user->posts->links() }}
+    {{ $user->projects->links() }}
 </div>
 @endsection

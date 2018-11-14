@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class CreateProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->text('body');
+            $table->text('git_url');
+            $table->text('project_path');
             $table->timestamps();
             $table->integer('user_id')->unsigned()->default(1);
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
-
         });
     }
 
@@ -33,6 +33,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('projects');
     }
 }

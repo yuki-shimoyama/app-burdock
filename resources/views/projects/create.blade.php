@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <h1>{{ $title }}</h1>
-    <form action="{{ url('posts') }}" method="post">
+    <form action="{{ url('projects') }}" method="post">
         @csrf
         @method('POST')
         <div class="form-group">
@@ -18,11 +18,11 @@
                 @endif
         </div>
         <div class="form-group">
-            <label for="body">{{ __('Git URL') }}</label>
-            <input id="body" type="text" class="form-control @if ($errors->has('body')) is-invalid @endif" name="body"  value="{{ old('body') }}">
-                @if ($errors->has('body'))
+            <label for="git_url">{{ __('Git URL') }}</label>
+            <input id="git_url" type="text" class="form-control @if ($errors->has('git_url')) is-invalid @endif" name="git_url"  value="{{ old('git_url') }}">
+                @if ($errors->has('git_url'))
                     <span class="invalid-feedback" role="alert">
-                        {{ $errors->first('body') }}
+                        {{ $errors->first('git_url') }}
                     </span>
                 @endif
         </div>

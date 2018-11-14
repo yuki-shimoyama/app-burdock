@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Post; // Postモデルをインポートする
-use App\Http\Requests\StorePost;
+use App\Project;
+use App\Http\Requests\StoreProject;
 
-class PostController extends Controller
+class ProjectController extends Controller
 {
     /**
      * 各アクションの前に実行させるミドルウェア
      */
     public function __construct()
     {
-        // ログインしなくても閲覧だけはできるようにexcept()で指定します。
-        // $this->middleware('auth')->except(['index', 'show']);
-        $this->middleware('verified')->except(['index', 'show']);
+        // ログイン・登録完了してなくても閲覧だけはできるようにexcept()で指定します。
+        $this->middleware('auth');
+        $this->middleware('verified');
     }
 
     /**
@@ -27,17 +27,17 @@ class PostController extends Controller
     {
         //
         // 1. 新しい順に取得できない
-        // $posts = Post::all();
+        // $projects = Project::all();
 
         // 2. 記述が長くなる
-        // $posts = Post::orderByDesc('created_at')->get();
+        // $projects = Project::orderByDesc('created_at')->get();
 
         // 3. latestメソッドがおすすめ
         // ページネーション（1ページに5件表示）
-        $posts = Post::latest()->paginate(5);
+        $projects = Project::latest()->paginate(5);
         // Debugbarを使ってみる
-        \Debugbar::info($posts);
-        return view('posts.index', ['posts' => $posts]);
+        \Debugbar::info($projects);
+        return view('projects.index', ['projects' => $projects]);
     }
 
     /**
@@ -48,31 +48,29 @@ class PostController extends Controller
     public function create()
     {
         //
-        return view('posts.create');
+        return view('projects.create');
     }
 
     /**
      * Store a newly created resource in storage.
      * 新しい記事を保存する
-     * @param  \App\Http\Requests\StorePost $request
+     * @param  \App\Http\Requests\StoreProject $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePost $request)
+    public function store(StoreProject $request)
     {
         //
-        $post = new Post;
-        $post->title = $request->title;
-        $post->body = $request->body;
-        // 記事作成時に著者のIDを保存する
-        $post->user_id = $request->user()->id;
-        $post->save();
+        $project = new Project;
+        $project->title = $request->title;
+        $project->git_url = $request->git_url;
 
         $bd_data_dir = env('BD_DATA_DIR');
-        $project_name = 'project_'.$post->title;
         $projects_name = 'projects';
+        $project_name = 'project_'.$project->title;
         $branchs_name = 'branches';
         $branch_name = 'master';
-        $git_url = $post->body;
+
+        $git_url = $project->git_url;
 
         if (!is_dir($bd_data_dir)) {
             mkdir($bd_data_dir);
@@ -98,13 +96,20 @@ class PostController extends Controller
         shell_exec($path_composer . ' create-project pickles2/preset-get-start-pickles2 ./' . $branch_name);
         chdir($branch_name);
 
+        $project_path = $bd_data_dir . "/" . $projects_name . "/" . $project_name . "/" . $branchs_name . "/" . $branch_name;
+        $project->project_path = $project_path;
+
+        // 記事作成時に著者のIDを保存する
+        $project->user_id = $request->user()->id;
+        $project->save();
+
         shell_exec('git init');
         shell_exec('git add -A');
         shell_exec('git commit -m "Create project"');
         shell_exec('git remote add origin ' . $git_url);
         shell_exec('git push origin master');
 
-        return redirect('posts/' . $post->id)->with('my_status', __('Created new Project.'));
+        return redirect('projects/' . $project->id)->with('my_status', __('Created new Project.'));
     }
 
     /**
@@ -113,10 +118,16 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Project $project)
     {
         //
-        return view('posts.show', ['post' => $post]);
+        chdir($project->project_path);
+        $bd_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
+        $bd_object = json_decode($bd_json);
+        echo $bd_object->config->name;
+        echo $bd_object->config->copyright;
+
+        return view('projects.show', ['project' => $project], compact('bd_object'));
     }
 
     /**
@@ -125,29 +136,29 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Project $project)
     {
         //
         // update, destroyでも同様に
-        $this->authorize('edit', $post);
-        return view('posts.edit', ['post' => $post]);
+        $this->authorize('edit', $project);
+        return view('projects.edit', ['project' => $project]);
     }
 
     /**
      * Update the specified resource in storage.
      * 記事の更新を保存する
-     * @param  \App\Http\Requests\StorePost $request
+     * @param  \App\Http\Requests\StoreProject $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePost $request, Post $post)
+    public function update(StoreProject $request, Project $project)
     {
         //
-        $this->authorize('edit', $post);
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->save();
-        return redirect('posts/' . $post->id)->with('my_status', __('Updated an Project.'));
+        $this->authorize('edit', $project);
+        $project->title = $request->title;
+        $project->body = $request->body;
+        $project->save();
+        return redirect('projects/' . $project->id)->with('my_status', __('Updated an Project.'));
     }
 
     /**
@@ -156,11 +167,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Project $project)
     {
         //
-        $this->authorize('edit', $post);
-        $post->delete();
-        return redirect('posts')->with('my_status', __('Deleted an Project.'));
+        $this->authorize('edit', $project);
+        $project->delete();
+        return redirect('projects')->with('my_status', __('Deleted an Project.'));
     }
 }

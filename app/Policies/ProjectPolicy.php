@@ -4,9 +4,9 @@ namespace App\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use App\Post;
+use App\Project;
 
-class PostPolicy
+class ProjectPolicy
 {
     use HandlesAuthorization;
 
@@ -37,11 +37,11 @@ class PostPolicy
      * 編集と削除の認可を判断する。
      *
      * @param  \App\User $user 現在ログインしているユーザー
-     * @param  \App\Post $post 現在表示している投稿
+     * @param  \App\Project $project 現在表示している投稿
      * @return mixed
      */
-    public function edit(User $user, Post $post)
+    public function edit(User $user, Project $project)
     {
-        return $user->id == $post->user_id;
+        return $user->id == $project->user_id;
     }
 }

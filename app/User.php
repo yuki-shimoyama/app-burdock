@@ -36,10 +36,10 @@ class User extends Authenticatable implements MustVerifyEmailContract
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function posts() // 複数形
+    public function projects() // 複数形
     {
         // 記事を新しい順で取得する
-        return $this->hasMany('App\Post')->latest();
+        return $this->hasMany('App\Project')->latest();
     }
 
     /**

@@ -29,7 +29,7 @@
                     <ul class="navbar-nav mr-auto">
                         {{-- 「記事」と「ユーザー」へのリンク --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('posts') }}">{{ __('Projects') }}</a>
+                            <a class="nav-link" href="{{ url('projects') }}">{{ __('Projects') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('users') }}">{{ __('Users') }}</a>
@@ -40,7 +40,7 @@
                     <ul class="navbar-nav ml-auto">
                         {{-- 投稿ボタン --}}
                         <li class="nav-item">
-                            <a href="{{ url('posts/create') }}" id="new-post" class="btn btn-success">
+                            <a href="{{ url('projects/create') }}" id="new-project" class="btn btn-success">
                                 {{ __('Create Project') }}
                             </a>
                         </li>

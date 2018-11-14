@@ -17,8 +17,9 @@ class UserController extends Controller
         // ログインしなくても閲覧だけはできるようにexcept()で指定します。
         // $this->middleware('auth')->except(['index', 'show']);
         // 登録完了していなくても、退会だけはできるようにする
-        $this->middleware('auth')->only('destroy');
-        $this->middleware('verified')->except(['index', 'show', 'destroy']);
+        // $this->middleware('verified')->except('destroy');
+        $this->middleware('auth');
+        $this->middleware('verified')->except(['show', 'edit', 'update', 'destroy']);
     }
 
     /**
@@ -75,7 +76,7 @@ class UserController extends Controller
     {
         //
         // そのユーザーが投稿した記事のうち、最新5件を取得
-        $user->posts = $user->posts()->paginate(5);
+        $user->projects = $user->projects()->paginate(5);
         return view('users.show', ['user' => $user]);
     }
 

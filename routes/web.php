@@ -23,5 +23,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('users', 'UserController');
 
-// ルート追加
-Route::resource('posts', 'PostController');
+Route::resource('projects', 'ProjectController');
+
+Route::get('pages', 'PageController@index');

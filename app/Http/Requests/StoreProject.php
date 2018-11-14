@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePost extends FormRequest
+class StoreProject extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class StorePost extends FormRequest
         return [
             // 題名は191文字まで、本文は400文字まで
             'title' => 'required|max:191',
-            'body' => 'required|max:400',
+            'git_url' => 'required|max:400',
         ];
     }
 }
