@@ -51,6 +51,11 @@ class ProjectController extends Controller
         return view('projects.create');
     }
 
+    private function getProjectPath($project_name, $branch_name) {
+        $project_path = env('BD_DATA_DIR') . "/" . "projects" . "/" . "project_" . $project_name . "/" . "branches" . "/" . $branch_name;
+        return $project_path;
+    }
+
     /**
      * Store a newly created resource in storage.
      * 新しい記事を保存する
@@ -66,7 +71,7 @@ class ProjectController extends Controller
 
         $bd_data_dir = env('BD_DATA_DIR');
         $projects_name = 'projects';
-        $project_name = 'project_'.$project->title;
+        $project_name = $project->title;
         $branchs_name = 'branches';
         $branch_name = 'master';
 
@@ -82,10 +87,10 @@ class ProjectController extends Controller
         }
         chdir($projects_name);
 
-        if (!is_dir($project_name)) {
-            mkdir($project_name);
+        if (!is_dir("project_" . $project_name)) {
+            mkdir("project_" . $project_name);
         }
-        chdir($project_name);
+        chdir("project_" . $project_name);
 
         if (!is_dir($branchs_name)) {
             mkdir($branchs_name);
@@ -96,7 +101,7 @@ class ProjectController extends Controller
         shell_exec($path_composer . ' create-project pickles2/preset-get-start-pickles2 ./' . $branch_name);
         chdir($branch_name);
 
-        $project_path = $bd_data_dir . "/" . $projects_name . "/" . $project_name . "/" . $branchs_name . "/" . $branch_name;
+        $project_path = $this->getProjectPath($project_name, $branch_name);
         $project->project_path = $project_path;
 
         // 記事作成時に著者のIDを保存する
