@@ -121,11 +121,11 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         //
-        // chdir($project->project_path);
-        // $bd_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
-        // $bd_object = json_decode($bd_json);
-        // echo $bd_object->config->name;
-        // echo $bd_object->config->copyright;
+        chdir($project->project_path);
+        $bd_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
+        $bd_object = json_decode($bd_json);
+        echo $bd_object->config->name;
+        echo $bd_object->config->copyright;
 
         return view('projects.show', ['project' => $project], compact('bd_object'));
     }
