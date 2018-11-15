@@ -8,6 +8,16 @@ class Project extends Model
 {
     //
     /**
+    * モデルのルートキーの取得
+    *
+    * @return string
+    */
+    public function getRouteKeyName()
+    {
+        return 'project_name';
+    }
+
+    /**
      * リレーション (従属の関係)
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

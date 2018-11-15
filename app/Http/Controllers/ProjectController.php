@@ -97,7 +97,6 @@ class ProjectController extends Controller
         chdir($branch_name);
 
         $project_path = getProjectPath($project_name, $branch_name);
-        $project->project_path = $project_path;
 
         // 記事作成時に著者のIDを保存する
         $project->user_id = $request->user()->id;
@@ -109,7 +108,7 @@ class ProjectController extends Controller
         shell_exec('git remote add origin ' . $git_url);
         shell_exec('git push origin master');
 
-        return redirect('projects/' . $project->id)->with('my_status', __('Created new Project.'));
+        return redirect('projects/' . $project->project_name)->with('my_status', __('Created new Project.'));
     }
 
     /**
@@ -121,7 +120,11 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         //
-        chdir($project->project_path);
+        $project_name = $project->project_name;
+        $branch_name = 'master';
+        $project_path = getProjectPath($project_name, $branch_name);
+
+        chdir($project_path);
         $bd_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
         $bd_object = json_decode($bd_json);
         echo $bd_object->config->name;
