@@ -25,7 +25,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="{{ url('projects/'.$project->id) }}">{{ $project->title }}</a>
+                        <a href="{{ url('projects/'.$project->id) }}">{{ $project->project_name }}</a>
                     </td>
                     <td>{{ $project->git_url }}</td>
                     <td>{{ $project->created_at }}</td>

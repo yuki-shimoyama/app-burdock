@@ -1,5 +1,5 @@
 @php
-    $title = $project->title;
+    $title = $project->project_name;
 @endphp
 @extends('layouts.my')
 @section('content')
@@ -15,7 +15,7 @@
             @component('components.btn-del')
                 @slot('controller', 'projects')
                 @slot('id', $project->id)
-                @slot('name', $project->title)
+                @slot('name', $project->project_name)
             @endcomponent
         </div>
     @endcan

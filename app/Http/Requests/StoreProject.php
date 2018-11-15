@@ -26,7 +26,7 @@ class StoreProject extends FormRequest
     {
         return [
             // 題名は191文字まで、本文は400文字まで
-            'title' => 'required|max:191',
+            'project_name' => 'required|max:191',
             'git_url' => 'required|max:400',
         ];
     }

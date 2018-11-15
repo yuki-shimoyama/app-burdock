@@ -1,5 +1,5 @@
 @php
-    $title = __('Edit') . ': ' . $project->title;
+    $title = __('Edit') . ': ' . $project->project_name;
 @endphp
 @extends('layouts.my')
 @section('content')
@@ -9,11 +9,11 @@
         @csrf
         @method('PUT')
         <div class="form-group">
-            <label for="title">{{ __('Project Name') }}</label>
-            <input id="title" type="text" class="form-control @if ($errors->has('title')) is-invalid @endif" name="title" value="{{ old('title', $project->title) }}" required autofocus>
-                @if ($errors->has('title'))
+            <label for="project_name">{{ __('Project Name') }}</label>
+            <input id="project_name" type="text" class="form-control @if ($errors->has('project_name')) is-invalid @endif" name="project_name" value="{{ old('project_name', $project->project_name) }}" required autofocus>
+                @if ($errors->has('project_name'))
                     <span class="invalid-feedback" role="alert">
-                        {{ $errors->first('title') }}
+                        {{ $errors->first('project_name') }}
                     </span>
                 @endif
         </div>

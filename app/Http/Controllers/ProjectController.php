@@ -61,12 +61,12 @@ class ProjectController extends Controller
     {
         //
         $project = new Project;
-        $project->title = $request->title;
+        $project->project_name = $request->project_name;
         $project->git_url = $request->git_url;
 
         $bd_data_dir = env('BD_DATA_DIR');
         $projects_name = 'projects';
-        $project_name = $project->title;
+        $project_name = $project->project_name;
         $branchs_name = 'branches';
         $branch_name = 'master';
 
@@ -121,11 +121,11 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         //
-        chdir($project->project_path);
-        $bd_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
-        $bd_object = json_decode($bd_json);
-        echo $bd_object->config->name;
-        echo $bd_object->config->copyright;
+        // chdir($project->project_path);
+        // $bd_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
+        // $bd_object = json_decode($bd_json);
+        // echo $bd_object->config->name;
+        // echo $bd_object->config->copyright;
 
         return view('projects.show', ['project' => $project], compact('bd_object'));
     }
@@ -155,8 +155,8 @@ class ProjectController extends Controller
     {
         //
         $this->authorize('edit', $project);
-        $project->title = $request->title;
-        $project->body = $request->body;
+        $project->project_name = $request->project_name;
+        $project->git_url = $request->git_url;
         $project->save();
         return redirect('projects/' . $project->id)->with('my_status', __('Updated an Project.'));
     }

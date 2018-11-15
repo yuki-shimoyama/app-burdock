@@ -16,7 +16,7 @@
             @component('components.btn-del')
                 @slot('controller', 'users')
                 @slot('id', $user->id)
-                @slot('name', $user->title)
+                @slot('name', $user->project_name)
             @endcomponent
         </div>
     @endcan
@@ -52,7 +52,7 @@
                     <tr>
                         <td>
                             <a href="{{ url('projects/' . $project->id) }}">
-                                {{ $project->title }}
+                                {{ $project->project_name }}
                             </a>
                         </td>
                         <td>{{ $project->git_url }}</td>
@@ -66,7 +66,7 @@
                                 @component('components.btn-del')
                                     @slot('controller', 'projects')
                                     @slot('id', $project->id)
-                                    @slot('name', $project->title)
+                                    @slot('name', $project->project_name)
                                 @endcomponent
                             </td>
                         @endcan
