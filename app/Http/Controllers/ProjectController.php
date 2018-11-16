@@ -98,7 +98,7 @@ class ProjectController extends Controller
         shell_exec($path_composer . ' create-project pickles2/preset-get-start-pickles2 ./' . $branch_name);
         chdir($branch_name);
 
-        $project_path = getProjectPath($project_name, $branch_name);
+        $project_path = get_project_workingtree_dir($project_name, $branch_name);
 
         // 記事作成時に著者のIDを保存する
         $project->user_id = $request->user()->id;
@@ -127,7 +127,7 @@ class ProjectController extends Controller
     {
         //
         $project_name = $project->project_name;
-        $project_path = getProjectPath($project_name, $branch_name);
+        $project_path = get_project_workingtree_dir($project_name, $branch_name);
 
         $path_current_dir = realpath('.'); // 元のカレントディレクトリを記憶
 

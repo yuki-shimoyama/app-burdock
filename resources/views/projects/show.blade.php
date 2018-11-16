@@ -16,7 +16,7 @@
                 @slot('controller', 'projects')
                 @slot('id', $project->id)
                 @slot('name', $project->project_name)
-                @slot('branch', getBranchName())
+                @slot('branch', get_git_remote_default_branch_name())
             @endcomponent
         </div>
     @endcan
