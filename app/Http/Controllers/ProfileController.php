@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 // コントローラ内で頻繁に使うことになるので、モデルをインポートしておきます。
 use App\User;
 use App\Http\Requests\StoreUser;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
     /**
      * 各アクションの前に実行させるミドルウェア
@@ -27,7 +28,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+     public function index()
     {
         //
         // ページネーション（1ページに5件表示）
@@ -75,9 +76,10 @@ class UserController extends Controller
     public function show(User $user)
     {
         //
-        // そのユーザーが投稿した記事のうち、最新5件を取得
+        $user = Auth::user();   #ログインユーザー情報を取得します。
+        // ページネーション（1ページに5件表示）
         $user->projects = $user->projects()->paginate(5);
-        return view('users.show', ['user' => $user]);
+        return view('users.profile', ['user' => $user]);
     }
 
     /**
