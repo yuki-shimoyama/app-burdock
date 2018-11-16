@@ -9,7 +9,7 @@
     {{-- 編集・削除ボタン --}}
     @can('edit', $project)
         <div class="edit">
-            <a href="{{ url('projects/'.$project->id.'/edit') }}" class="btn btn-primary">
+            <a href="{{ url('projects/'.$project->project_name.'/'.$branch_name.'/edit') }}" class="btn btn-primary">
                 {{ __('Edit') }}
             </a>
             @component('components.btn-del')
