@@ -97,7 +97,6 @@ class ProjectController extends Controller
         chdir($branch_name);
 
         $project_path = getProjectPath($project_name, $branch_name);
-        $project->project_path = $project_path;
 
         // 記事作成時に著者のIDを保存する
         $project->user_id = $request->user()->id;
@@ -109,7 +108,7 @@ class ProjectController extends Controller
         shell_exec('git remote add origin ' . $git_url);
         shell_exec('git push origin master');
 
-        return redirect('projects/' . $project->id)->with('my_status', __('Created new Project.'));
+        return redirect('projects/' . $project->project_name . '/' . $branch_name)->with('my_status', __('Created new Project.'));
     }
 
     /**
@@ -118,16 +117,19 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(Project $project, $branch_name)
     {
         //
-        chdir($project->project_path);
+        $project_name = $project->project_name;
+        $project_path = getProjectPath($project_name, $branch_name);
+
+        chdir($project_path);
         $bd_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
         $bd_object = json_decode($bd_json);
         echo $bd_object->config->name;
         echo $bd_object->config->copyright;
 
-        return view('projects.show', ['project' => $project], compact('bd_object'));
+        return view('projects.show', ['project' => $project, 'branch_name' => $branch_name], compact('bd_object'));
     }
 
     /**
@@ -136,12 +138,12 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit(Project $project, $branch_name)
     {
         //
         // update, destroyでも同様に
         $this->authorize('edit', $project);
-        return view('projects.edit', ['project' => $project]);
+        return view('projects.edit', ['project' => $project, 'branch_name' => $branch_name]);
     }
 
     /**
@@ -151,14 +153,19 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreProject $request, Project $project)
+    public function update(StoreProject $request, Project $project, $branch_name)
     {
         //
         $this->authorize('edit', $project);
+
+        $bd_data_dir = env('BD_DATA_DIR');
+        chdir($bd_data_dir . '/projects/');
+        rename('project_'. $project->project_name, 'project_'. $request->project_name);
+        
         $project->project_name = $request->project_name;
         $project->git_url = $request->git_url;
         $project->save();
-        return redirect('projects/' . $project->id)->with('my_status', __('Updated an Project.'));
+        return redirect('projects/' . $project->project_name . '/' . $branch_name)->with('my_status', __('Updated an Project.'));
     }
 
     /**
@@ -167,7 +174,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project, $branch_name)
     {
         //
         $this->authorize('edit', $project);

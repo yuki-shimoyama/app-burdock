@@ -13,7 +13,7 @@
                 {{ __('Edit') }}
             </a>
             {{-- 削除ボタンは後で正式なものに置き換えます --}}
-            @component('components.btn-del')
+            @component('components.btn-user-del')
                 @slot('controller', 'users')
                 @slot('id', $user->id)
                 @slot('name', $user->project_name)
@@ -51,7 +51,7 @@
                 @foreach ($user->projects as $project)
                     <tr>
                         <td>
-                            <a href="{{ url('projects/' . $project->id) }}">
+                            <a href="{{ url('projects/' . $project->project_name . '/' . getBranchName()) }}">
                                 {{ $project->project_name }}
                             </a>
                         </td>
@@ -60,13 +60,14 @@
                         <td>{{ $project->updated_at }}</td>
                         @can('edit', $user)
                             <td nowrap>
-                                <a href="{{ url('projects/' . $project->id . '/edit') }}" class="btn btn-primary">
+                                <a href="{{ url('projects/' . $project->project_name . '/' . getBranchName() . '/edit') }}" class="btn btn-primary">
                                     {{ __('Edit') }}
                                 </a>
                                 @component('components.btn-del')
                                     @slot('controller', 'projects')
                                     @slot('id', $project->id)
                                     @slot('name', $project->project_name)
+                                    @slot('branch', getBranchName())
                                 @endcomponent
                             </td>
                         @endcan
