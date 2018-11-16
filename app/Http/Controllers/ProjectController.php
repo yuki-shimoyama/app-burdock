@@ -72,6 +72,8 @@ class ProjectController extends Controller
 
         $git_url = $project->git_url;
 
+        $path_current_dir = realpath('.'); // 元のカレントディレクトリを記憶
+
         if (!is_dir($bd_data_dir)) {
             mkdir($bd_data_dir);
         }
@@ -106,11 +108,13 @@ class ProjectController extends Controller
         shell_exec('git add -A');
         shell_exec('git commit -m "Create project"');
         if( strlen($git_url) ){
-            shell_exec('git remote add origin ' . $git_url);
+            shell_exec('git remote add origin ' . escapeshellarg($git_url));
         }
         shell_exec('git push origin master');
 
-        return redirect('projects/' . $project->project_name . '/' . $branch_name)->with('my_status', __('Created new Project.'));
+        chdir($path_current_dir); // 元いたディレクトリへ戻る
+
+        return redirect('projects/' . urlencode($project->project_name) . '/' . urlencode($branch_name))->with('my_status', __('Created new Project.'));
     }
 
     /**
@@ -125,11 +129,15 @@ class ProjectController extends Controller
         $project_name = $project->project_name;
         $project_path = getProjectPath($project_name, $branch_name);
 
+        $path_current_dir = realpath('.'); // 元のカレントディレクトリを記憶
+
         chdir($project_path);
         $bd_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
         $bd_object = json_decode($bd_json);
         echo $bd_object->config->name;
         echo $bd_object->config->copyright;
+
+        chdir($path_current_dir); // 元いたディレクトリへ戻る
 
         return view('projects.show', ['project' => $project, 'branch_name' => $branch_name], compact('bd_object'));
     }
@@ -161,12 +169,17 @@ class ProjectController extends Controller
         $this->authorize('edit', $project);
 
         $bd_data_dir = env('BD_DATA_DIR');
+        $path_current_dir = realpath('.'); // 元のカレントディレクトリを記憶
+
         chdir($bd_data_dir . '/projects/');
         rename('project_'. $project->project_name, 'project_'. $request->project_name);
         
         $project->project_name = $request->project_name;
         $project->git_url = $request->git_url;
         $project->save();
+
+        chdir($path_current_dir); // 元いたディレクトリへ戻る
+
         return redirect('projects/' . $project->project_name . '/' . $branch_name)->with('my_status', __('Updated an Project.'));
     }
 
