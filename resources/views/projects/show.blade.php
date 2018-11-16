@@ -16,6 +16,7 @@
                 @slot('controller', 'projects')
                 @slot('id', $project->id)
                 @slot('name', $project->project_name)
+                @slot('branch', getBranchName())
             @endcomponent
         </div>
     @endcan
