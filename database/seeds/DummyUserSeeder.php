@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UsersTableSeeder extends Seeder
+class DummyUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,10 +13,11 @@ class UsersTableSeeder extends Seeder
     {
         // Fakerを使う
         $faker = Faker\Factory::create('ja_JP');
+
         // 固定ユーザーを作成
         DB::table('users')->insert([
             'name' => 'test0001',
-            'email' => 'test0001@gmail.com',
+            'email' => 'test0001@example.com',
             'password' => bcrypt('test0001'),
             'lang' => 'ja',
             'email_verified_at' => $faker->dateTime(),
@@ -25,7 +26,7 @@ class UsersTableSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'name' => 'test0002',
-            'email' => 'test0002@gmail.com',
+            'email' => 'test0002@example.com',
             'password' => bcrypt('test0002'),
             'lang' => 'en',
             'email_verified_at' => $faker->dateTime(),

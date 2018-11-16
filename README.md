@@ -54,7 +54,7 @@ Application key set successfully.
 DB_CONNECTION=sqlite
 DB_HOST=
 DB_PORT=
-DB_DATABASE=database.sqlite
+DB_DATABASE=../bd_data/database.sqlite
 DB_USERNAME=
 DB_PASSWORD=
 ```
@@ -69,16 +69,6 @@ BD_DATA_DIR=/Users/hoge/fuga/path_to_project_dir
 ```
 
 
-##### データベースシステム に sqlite を利用する場合の注意点
-
-sqlite を利用する場合、 DB_DATABASE の設定に注意が必要です。
-
-プロジェクトのルート(=artisanが置かれたパス)を起点とした相対パスで設定したので、後述の migrate コマンドは正常に動作します。
-しかし、実際のアプリケーションはこれでは動作しません。
-相対パスの起点が `public/` に変わるので、データベースファイルのパスがずれてしまうためです。
-
-この問題を回避するために、 `public/` 起点の相対パスに設定して、publicディレクトリでmigrate を実行 (`cd public/; php ../artisan migrate --seed;`) するか、または 絶対パスで設定する必要があります。
-
 #### その他
 
 メール送信サーバーなどの設定項目があります。
@@ -90,10 +80,20 @@ sqlite を利用する場合、 DB_DATABASE の設定に注意が必要です。
 $ php artisan migrate --seed
 ```
 
-※ SQLite を使用する場合、先に 空白のデータベースファイルを作成しておく必要があります。
+#### データベースシステム に sqlite を利用する場合の注意点
+
+SQLite を使用する場合は、先に 空白のデータベースファイルを作成しておく必要があります。
+
+また、データベースのパスを相対パスで指定したい場合、 migrate コマンド実行時に注意が必要です。
+実際のアプリケーションは相対パスの起点が `public/` で実行されます。 migrate コマンドは、これと同じカレントディレクトリで実行される必要があります。
+
+`DB_DATABASE` の値を `public/` 起点の相対パスに設定して、 publicディレクトリ で migrate を実行します。
 
 ```
-$ touch database.sqlite
+$ cd public/;
+$ touch ../bd_data/database.sqlite
+$ php ../artisan migrate --seed;
+$ cd ..;
 ```
 
 ### サーバーを起動してみる
@@ -119,3 +119,11 @@ $ php artisan serve
 ## ライセンス - License
 
 MIT License
+
+## 開発者向け情報 - for Developer
+
+### データベースへのダミーデータシーディング
+
+```
+$ php artisan db:seed --class=DummyDataSeeder
+```
