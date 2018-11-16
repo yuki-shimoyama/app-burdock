@@ -77,7 +77,7 @@ sqlite を利用する場合、 DB_DATABASE の設定に注意が必要です。
 しかし、実際のアプリケーションはこれでは動作しません。
 相対パスの起点が `public/` に変わるので、データベースファイルのパスがずれてしまうためです。
 
-この問題を回避するために、 `DB_DATABASE=database.sqlite` に設定して migrate を実行後 `../database.sqlite` に書き換えるか、または 絶対パスで設定する必要があります。
+この問題を回避するために、 `public/` 起点の相対パスに設定して、publicディレクトリでmigrate を実行 (`cd public/; php ../artisan migrate --seed;`) するか、または 絶対パスで設定する必要があります。
 
 #### その他
 
