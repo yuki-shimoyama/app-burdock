@@ -25,9 +25,8 @@ class StoreProject extends FormRequest
     public function rules()
     {
         return [
-            // 題名は191文字まで、本文は400文字まで
             'project_name' => 'required|max:191',
-            'git_url' => 'required|max:400',
+            'git_url' => 'nullable|url|max:400',
         ];
     }
 }

@@ -91,7 +91,7 @@ SQLite を使用する場合は、先に 空白のデータベースファイル
 
 ```
 $ cd public/;
-$ touch ../bd_data/database.sqlite
+$ touch ../bd_data/database.sqlite;
 $ php ../artisan migrate --seed;
 $ cd ..;
 ```

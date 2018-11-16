@@ -16,7 +16,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('project_name');
-            $table->text('git_url');
+            $table->text('git_url')->nullable();
             $table->timestamps();
             $table->integer('user_id')->unsigned()->default(1);
             $table->foreign('user_id')

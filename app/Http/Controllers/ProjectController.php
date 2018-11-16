@@ -105,7 +105,9 @@ class ProjectController extends Controller
         shell_exec('git init');
         shell_exec('git add -A');
         shell_exec('git commit -m "Create project"');
-        shell_exec('git remote add origin ' . $git_url);
+        if( strlen($git_url) ){
+            shell_exec('git remote add origin ' . $git_url);
+        }
         shell_exec('git push origin master');
 
         return redirect('projects/' . $project->project_name . '/' . $branch_name)->with('my_status', __('Created new Project.'));
