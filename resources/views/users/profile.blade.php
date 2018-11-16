@@ -51,7 +51,7 @@
                 @foreach ($user->projects as $project)
                     <tr>
                         <td>
-                            <a href="{{ url('projects/' . $project->project_name . '/' . getBranchName()) }}">
+                            <a href="{{ url('projects/' . $project->project_name . '/' . get_git_remote_default_branch_name()) }}">
                                 {{ $project->project_name }}
                             </a>
                         </td>
@@ -60,14 +60,14 @@
                         <td>{{ $project->updated_at }}</td>
                         @can('edit', $user)
                             <td nowrap>
-                                <a href="{{ url('projects/' . $project->project_name . '/' . getBranchName() . '/edit') }}" class="btn btn-primary">
+                                <a href="{{ url('projects/' . $project->project_name . '/' . get_git_remote_default_branch_name() . '/edit') }}" class="btn btn-primary">
                                     {{ __('Edit') }}
                                 </a>
                                 @component('components.btn-del')
                                     @slot('controller', 'projects')
                                     @slot('id', $project->id)
                                     @slot('name', $project->project_name)
-                                    @slot('branch', getBranchName())
+                                    @slot('branch', get_git_remote_default_branch_name())
                                 @endcomponent
                             </td>
                         @endcan
