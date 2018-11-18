@@ -21,17 +21,20 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::get('users', 'UserController@index');
-// Route::get('users/create', 'UserController@create');
-// Route::post('users', 'UserController@store');
-Route::get('profile', 'ProfileController@show');   // 実ファイルはusers/profileに置いている
-Route::get('profile/edit', 'ProfileController@edit');
-// Route::put('users/{user}', 'UserController@update');
-// Route::delete('users/{user}', 'UserController@destroy');
+// Route::get('users', 'UserController@index'); //ユーザー一覧は封印
+Route::get('users/create', 'UserController@create');
+Route::post('users', 'UserController@store');
+Route::get('users/{user}', 'UserController@show');
+Route::get('users/{user}/edit', 'UserController@edit');
+Route::put('users/{user}', 'UserController@update');
+Route::delete('users/{user}', 'UserController@destroy');
 
 // Route::resource('users', 'UserController');
 
-Route::get('projects', 'ProjectController@index');
+Route::get('profile', 'ProfileController@show');
+Route::get('profile/edit', 'ProfileController@edit');
+
+// Route::get('projects', 'ProjectController@index'); //プロジェクト一覧は封印
 Route::get('projects/create', 'ProjectController@create');
 Route::post('projects', 'ProjectController@store');
 Route::get('projects/{project}/{branch_name}', 'ProjectController@show');

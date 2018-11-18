@@ -9,7 +9,7 @@
     {{-- 編集・削除ボタン --}}
     @can('edit', $user)
         <div>
-            <a href="{{ url('users/'.$user->id.'/edit') }}" class="btn btn-primary">
+            <a href="{{ url('profile/edit') }}" class="btn btn-primary">
                 {{ __('Edit') }}
             </a>
             {{-- 削除ボタンは後で正式なものに置き換えます --}}

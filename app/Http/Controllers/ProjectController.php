@@ -134,8 +134,6 @@ class ProjectController extends Controller
         chdir($project_path);
         $bd_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
         $bd_object = json_decode($bd_json);
-        echo $bd_object->config->name;
-        echo $bd_object->config->copyright;
 
         chdir($path_current_dir); // 元いたディレクトリへ戻る
 
@@ -173,7 +171,7 @@ class ProjectController extends Controller
 
         chdir($bd_data_dir . '/projects/');
         rename('project_'. $project->project_name, 'project_'. $request->project_name);
-        
+
         $project->project_name = $request->project_name;
         $project->git_url = $request->git_url;
         $project->save();
@@ -194,6 +192,6 @@ class ProjectController extends Controller
         //
         $this->authorize('edit', $project);
         $project->delete();
-        return redirect('projects')->with('my_status', __('Deleted an Project.'));
+        return redirect('/')->with('my_status', __('Deleted an Project.'));
     }
 }

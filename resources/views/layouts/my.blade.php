@@ -27,12 +27,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     {{-- Navbarの左側 --}}
                     <ul class="navbar-nav mr-auto">
-                        {{-- 「記事」と「ユーザー」へのリンク --}}
+                        {{-- 「プロジェクト」と「ユーザー」へのリンク --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('projects') }}">{{ __('Projects') }}</a>
+                            {{-- プロジェクト一覧へのリンクは封印 --}}
+                            {{-- <a class="nav-link" href="{{ url('projects') }}">{{ __('Projects') }}</a> --}}
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('users') }}">{{ __('Users') }}</a>
+                            {{-- ユーザー一覧へのリンクは封印 --}}
+                            {{-- <a class="nav-link" href="{{ url('users') }}">{{ __('Users') }}</a> --}}
                         </li>
                     </ul>
 

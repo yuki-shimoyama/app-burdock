@@ -25,9 +25,7 @@
     <dl class="row">
         <dt class="col-md-2">{{ __('Author') }}:</dt>
         <dd class="col-md-10">
-            <a href="{{ url('users/' . $project->user->id) }}">
                 {{ $project->user->name }}
-            </a>
         </dd>
         <dt class="col-md-2">{{ __('Created') }}:</dt>
         <dd class="col-md-10">
