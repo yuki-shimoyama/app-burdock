@@ -13,13 +13,9 @@ use Illuminate\Contracts\Console\Kernel;
 |
 */
 
-Route::get('/', function () {
-    return view('top');
-});
-
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
 
 // Route::get('users', 'UserController@index'); //ユーザー一覧は封印
 Route::get('users/create', 'UserController@create');
