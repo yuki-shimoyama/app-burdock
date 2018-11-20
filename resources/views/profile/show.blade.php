@@ -14,7 +14,7 @@
             </a>
             {{-- 削除ボタンは後で正式なものに置き換えます --}}
             @component('components.btn-user-del')
-                @slot('controller', 'users')
+                @slot('controller', 'profile')
                 @slot('id', $user->id)
                 @slot('name', $user->project_name)
             @endcomponent
