@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProject extends FormRequest
+class StoreSitemap extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,7 @@ class StoreProject extends FormRequest
     public function rules()
     {
         return [
-            'project_name' => 'required|max:191',
-            'git_url' => 'required|nullable|url|max:400',
+            'file' => 'required|mimes:xlsx',
         ];
     }
 }
