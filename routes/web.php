@@ -17,7 +17,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index');
 
-// Route::get('users', 'UserController@index'); //ユーザー一覧は封印
+// Route::get('users', 'UserController@index');
 // Route::get('users/create', 'UserController@create');
 // Route::post('users', 'UserController@store');
 // Route::get('users/{user}', 'UserController@show');
@@ -27,8 +27,6 @@ Route::get('/', 'HomeController@index');
 
 // Route::resource('users', 'UserController');
 
-Route::get('profile/create', 'ProfileController@create');
-Route::post('profile', 'ProfileController@store');
 Route::get('profile', 'ProfileController@show');
 Route::get('profile/edit', 'ProfileController@edit');
 Route::put('profile', 'ProfileController@update');

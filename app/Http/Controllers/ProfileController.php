@@ -22,36 +22,6 @@ class ProfileController extends Controller
         $this->middleware('auth');
         $this->middleware('verified')->except(['show', 'edit', 'update', 'destroy']);
     }
-    
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // 追加用のフォーム画面へ移動
-        return view('create.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreUser $request
-     * @return \Illuminate\Http\Response
-     */
-    // 実際の追加処理
-    // 終わったら、作ったばかりのユーザーのページへ移動
-    public function store(StoreUser $request)
-    {
-        //
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
-        return redirect('profile.show')->with('my_status', __('Created new user.'));
-    }
 
     /**
      * Display the specified resource.
