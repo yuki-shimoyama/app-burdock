@@ -5,9 +5,10 @@
   content: "参照";
 }
 
-.custom-file {
+/* .custom-file {
   overflow: hidden;
-}
+} */
+
 .custom-file-label {
   white-space: nowrap;
 }
