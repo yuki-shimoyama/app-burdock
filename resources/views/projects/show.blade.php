@@ -58,7 +58,7 @@
                         @endif
                     <label class="custom-file-label" for="customFile">ファイル選択...</label>
                 </div>
-                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block">{{ __('Update')}}</button>
+                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Update')}}</button>
             </form>
         </div>
     </div>
