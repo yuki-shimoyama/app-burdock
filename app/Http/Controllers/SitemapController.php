@@ -25,4 +25,13 @@ class SitemapController extends Controller
 
         return redirect('projects/' . $project_name . '/' . $branch_name)->with('my_status', __('Updated a Sitemap.'));
     }
+
+    public function download(Request $request, Project $project, $branch_name)
+    {
+        //
+        $project_name = $project->project_name;
+        $pathToFile = get_project_workingtree_dir($project_name, $branch_name).'/px-files/sitemaps/sitemap.xlsx';
+        $name = 'sitemap.xlsx';
+        return response()->download($pathToFile, $name);
+    }
 }

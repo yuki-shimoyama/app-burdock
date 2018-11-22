@@ -46,7 +46,7 @@
         <div class="card-body">
             <h4 class="card-title">{{ __('Edit Sitemap')}}</h4>
             <p class="card-text">サイトマップは、サイト全体のページ構成を定義する概念です。CSVまたはMicrosoft Excelのファイル形式で編集できます。</p>
-            <form method="POST" action="{{ url('/sitemap'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('/upload'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="form-group custom-file">
@@ -58,7 +58,13 @@
                         @endif
                     <label class="custom-file-label" for="customFile">ファイル選択...</label>
                 </div>
-                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Update')}}</button>
+                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Upload')}}</button>
+            </form>
+
+            <form method="POST" action="{{ url('/download'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="file">
+                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Download')}}</button>
             </form>
         </div>
     </div>
