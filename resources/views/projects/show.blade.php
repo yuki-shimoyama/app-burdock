@@ -83,7 +83,11 @@
         <div class="card-body">
             <h4 class="card-title">{{ __('To Publish')}}</h4>
             <p class="card-text">パブリッシュは、コンテンツを静的なHTMLに書き出します。 動的なHTMLと比べてサーバーへの負荷が軽くなります。</p>
-            <a href="#" class="btn btn-primary btn-lg btn-block">{{ __('Run')}}</a>
+            <form method="POST" action="{{ url('/publish'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="file">
+                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Run')}}</button>
+            </form>
         </div>
     </div>
     <div class="clearfix"></div>
