@@ -10,7 +10,7 @@ use App\Http\Requests\StoreSitemap;
 class SitemapController extends Controller
 {
     //
-    public function update(StoreSitemap $request, Project $project, $branch_name)
+    public function upload(StoreSitemap $request, Project $project, $branch_name)
     {
         //
         $project_name = $project->project_name;

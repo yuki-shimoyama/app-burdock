@@ -42,7 +42,7 @@ Route::delete('projects/{project}/{branch_name}', 'ProjectController@destroy');
 
 // Route::resource('projects', 'ProjectController');
 
-Route::post('upload/{project}/{branch_name}', 'SitemapController@update');
+Route::post('upload/{project}/{branch_name}', 'SitemapController@upload');
 Route::post('download/{project}/{branch_name}', 'SitemapController@download');
 Route::post('publish/{project}/{branch_name}', 'PublishController@publish');
 
