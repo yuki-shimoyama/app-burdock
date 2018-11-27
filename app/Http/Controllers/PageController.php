@@ -9,20 +9,34 @@ use App\Project;
 
 class PageController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Project $project, $branch_name)
     {
         //
-        $user = Auth::user()->id;
-        $bd_project_path = Project::where('user_id', $user)->value('project_path');
-        chdir($bd_project_path);
-        $bd_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
-        $bd_object = json_decode($bd_json);
+        $client_resources_dist = realpath(__DIR__.'/../../../public/assets/px2ce_resources');
 
-        return view('pages.index', compact('bd_object'));
+        $project_name = $project->project_name;
+        $project_path = get_project_workingtree_dir($project_name, $branch_name);
+        $path_current_dir = realpath('.'); // 元のカレントディレクトリを記憶
+        chdir($project_path);
+        $result = shell_exec('php .px_execute.php /index.html?PX=px2dthelper.px2ce.client_resources\&dist='.$client_resources_dist);
+        $px2ce_client_resources = json_decode($result, true);
+        chdir($path_current_dir); // 元いたディレクトリへ戻る
+
+        return view('pages.index', compact('px2ce_client_resources'));
+    }
+
+
+    public function gpi(Request $request, Project $project, $branch_name)
+    {
+        //
+        $project_name = $project->project_name;
+        $project_path = get_project_workingtree_dir($project_name, $branch_name);
+        $path_current_dir = realpath('.'); // 元のカレントディレクトリを記憶
+        chdir($project_path);
+        $result = shell_exec('php .px_execute.php /index.html?PX=px2dthelper.px2ce.gpi\&data='.base64_encode($request->data));
+        header('Content-type: text/json');
+        echo $result;
+        chdir($path_current_dir); // 元いたディレクトリへ戻る
+        exit;
     }
 }

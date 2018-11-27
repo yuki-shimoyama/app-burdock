@@ -46,4 +46,5 @@ Route::post('upload/{project}/{branch_name}', 'SitemapController@upload');
 Route::post('download/{project}/{branch_name}', 'SitemapController@download');
 Route::post('publish/{project}/{branch_name}', 'PublishController@publish');
 
-Route::get('pages', 'PageController@index');
+Route::get('pages/{project}/{branch_name}', 'PageController@index');
+Route::post('pages/{project}/{branch_name}', 'PageController@gpi');
