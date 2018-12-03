@@ -9,7 +9,7 @@ use App\Project;
 
 class PageController extends Controller
 {
-    public function index(Project $project, $branch_name)
+    public function index(Project $project, $branch_name, $page_name)
     {
         //
         $client_resources_dist = realpath(__DIR__.'/../../../public/assets/px2ce_resources');
@@ -22,7 +22,7 @@ class PageController extends Controller
         $px2ce_client_resources = json_decode($result, true);
         chdir($path_current_dir); // 元いたディレクトリへ戻る
 
-        return view('pages.index', compact('px2ce_client_resources'));
+        return view('pages.index', ['project' => $project, 'branch_name' => $branch_name, 'page_name' => $page_name], compact('px2ce_client_resources'));
     }
 
 

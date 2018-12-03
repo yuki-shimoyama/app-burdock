@@ -23,20 +23,36 @@ foreach($px2ce_client_resources['js'] as $value) {
 	<div class="container">
 		<h1 id="post-title">{{ $title }}</h1>
 		<hr>
-		<div id="canvas" style="height:2000px;">
+		<div id="canvas" style="height:700px;">
 		</div>
 
 		<script type="text/javascript">
 			pickles2ContentsEditor = new Pickles2ContentsEditor(); // px2ce client
 		</script>
 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
+		<script>
+		var editor = ace.edit("editor");
+		editor.setTheme("ace/theme/monokai");
+		editor.setFontSize(14);
+		editor.getSession().setMode("ace/mode/html");
+		editor.getSession().setUseWrapMode(true);
+		editor.getSession().setTabSize(2);
+		</script>
+
 		<script type="text/javascript">
+			var project_name = <?php echo json_encode($project->project_name); ?>;
+			console.log(project_name);
+			var branch_name = <?php echo json_encode($branch_name); ?>;
+			console.log(branch_name);
+			var page_name = <?php echo json_encode($page_name); ?>;
+			console.log(page_name);
 			pickles2ContentsEditor.init(
 				{
 					// いろんな設定値
 					// これについては Px2CE の README を参照
 					// https://github.com/pickles2/node-pickles2-contents-editor
-					'page_path': '/sample_pages/' , // <- 編集対象ページのパス
+					'page_path': '/'+page_name , // <- 編集対象ページのパス
 					'elmCanvas': document.getElementById('canvas'), // <- 編集画面を描画するための器となる要素
 					'preview':{
 						'origin': 'https://prev1.app-burdock.localhost/'// プレビュー用サーバーの情報を設定します。
@@ -55,7 +71,7 @@ foreach($px2ce_client_resources['js'] as $value) {
 					'gpiBridge': function(input, callback){
 						console.log(input);
 						$.ajax({
-							"url": '/pages/test0001/master', // ←呼び出し元が決める
+							"url": '/pages/'+project_name+'/'+branch_name+'/'+page_name, // ←呼び出し元が決める
 							"method": 'post',
 							'data': {
 								'data':JSON.stringify(input),
