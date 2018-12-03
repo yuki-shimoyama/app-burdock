@@ -18,7 +18,7 @@ class PageController extends Controller
         $project_path = get_project_workingtree_dir($project_name, $branch_name);
         $path_current_dir = realpath('.'); // 元のカレントディレクトリを記憶
         chdir($project_path);
-        $result = shell_exec('php .px_execute.php /index.html?PX=px2dthelper.px2ce.client_resources\&dist='.$client_resources_dist);
+        $result = shell_exec('php .px_execute.php /sample_pages/?PX=px2dthelper.px2ce.client_resources\&dist='.$client_resources_dist);
         $px2ce_client_resources = json_decode($result, true);
         chdir($path_current_dir); // 元いたディレクトリへ戻る
 
@@ -31,11 +31,34 @@ class PageController extends Controller
         //
         $project_name = $project->project_name;
         $project_path = get_project_workingtree_dir($project_name, $branch_name);
+
         $path_current_dir = realpath('.'); // 元のカレントディレクトリを記憶
         chdir($project_path);
-        $result = shell_exec('php .px_execute.php /index.html?PX=px2dthelper.px2ce.gpi\&data='.base64_encode($request->data));
+
+        $data_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all');
+        $current = json_decode($data_json);
+
+        // ミリ秒を含むUnixタイムスタンプを数値（Float）で取得
+        $timestamp = microtime(true);
+
+        // ミリ秒とそうでない部分を分割
+        $timeInfo = explode('.', $timestamp);
+
+        // ミリ秒でない時間の部分を指定のフォーマットに変換し、その末尾にミリ秒を追加
+        $timeWithMillisec = date('YmdHis', $timeInfo[0]).$timeInfo[1];
+        // 一時ファイル名を作成
+        $tmpFileName = '__tmp_'.md5($timeWithMillisec).'_data.json';
+        // 一時ファイルを保存
+        $file = $current->realpath_homedir.'_sys/ram/data/'.$tmpFileName;
+        file_put_contents($file, $request->data);
+
+        $result = shell_exec('php .px_execute.php /sample_pages/?PX=px2dthelper.px2ce.gpi\&data_filename='.$tmpFileName);
+
         header('Content-type: text/json');
         echo $result;
+        // 作成した一時ファイルを削除
+        unlink($file);
+
         chdir($path_current_dir); // 元いたディレクトリへ戻る
         exit;
     }

@@ -1,7 +1,7 @@
 @php
 	$title = __('Contents');
 @endphp
-@extends('layouts.my')
+@extends('layouts.preview')
 
 @section('stylesheet')
 <?php
@@ -23,13 +23,11 @@ foreach($px2ce_client_resources['js'] as $value) {
 	<div class="container">
 		<h1 id="post-title">{{ $title }}</h1>
 		<hr>
-		<div id="canvas" style="height:500px; width:800px">
+		<div id="canvas" style="height:2000px;">
 		</div>
 
 		<script type="text/javascript">
-		console.log(39);
 			pickles2ContentsEditor = new Pickles2ContentsEditor(); // px2ce client
-		console.log(40);
 		</script>
 
 		<script type="text/javascript">
@@ -38,20 +36,20 @@ foreach($px2ce_client_resources['js'] as $value) {
 					// いろんな設定値
 					// これについては Px2CE の README を参照
 					// https://github.com/pickles2/node-pickles2-contents-editor
-					'page_path': '/index.html' , // <- 編集対象ページのパス
+					'page_path': '/sample_pages/' , // <- 編集対象ページのパス
 					'elmCanvas': document.getElementById('canvas'), // <- 編集画面を描画するための器となる要素
 					'preview':{
 						'origin': 'https://prev1.app-burdock.localhost/'// プレビュー用サーバーの情報を設定します。
 					},
 					'lang': 'en', // language
-					// 'customFields': {
-					// 	// この設定項目は、 broccoli-html-editor に渡されます
-					// 	'custom1': function(broccoli){
-					// 		// カスタムフィールドを実装します。
-					// 		// この関数は、fieldBase.js を基底クラスとして継承します。
-					// 		// customFields オブジェクトのキー(ここでは custom1)が、フィールドの名称になります。
-					// 	}
-					// },
+					'customFields': {
+						// この設定項目は、 broccoli-html-editor に渡されます
+						'custom1': function(broccoli){
+							// カスタムフィールドを実装します。
+							// この関数は、fieldBase.js を基底クラスとして継承します。
+							// customFields オブジェクトのキー(ここでは custom1)が、フィールドの名称になります。
+						}
+					},
 					// 特に重要なのはこれ。
 					// サーバーサイドのGPIに対して値の橋渡しをするコールバックを指定します。
 					'gpiBridge': function(input, callback){
@@ -93,10 +91,8 @@ foreach($px2ce_client_resources['js'] as $value) {
 				function(){
 					// コールバック
 					// 初期化完了！
-					console.log(41);
 				}
 			);
-			console.log(42);
 		</script>
 	</div>
 @endsection
