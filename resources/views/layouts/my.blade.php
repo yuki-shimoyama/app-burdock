@@ -12,6 +12,10 @@
 
     {{-- CSS --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    @yield('stylesheet')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    @yield('javascript')
 </head>
 <body>
     <div id="app">
@@ -115,6 +119,7 @@
 
     {{-- JavaScript --}}
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
     @yield('script')
 </body>
 </html>

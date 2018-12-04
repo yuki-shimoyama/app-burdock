@@ -46,7 +46,26 @@
         <div class="card-body">
             <h4 class="card-title">{{ __('Edit Sitemap')}}</h4>
             <p class="card-text">サイトマップは、サイト全体のページ構成を定義する概念です。CSVまたはMicrosoft Excelのファイル形式で編集できます。</p>
-            <a href="#" class="btn btn-primary btn-lg btn-block">{{ __('Edit')}}</a>
+            <form method="POST" action="{{ url('/upload'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
+                @csrf
+                @method('POST')
+                <div class="form-group custom-file">
+                    <input type="file" class="form-control custom-file-input @if ($errors->has('file')) is-invalid @endif" name="file" value="{{ old('file') }}" id="customFile" lang="ja">
+                        @if ($errors->has('file'))
+                            <span class="invalid-feedback" role="alert">
+                                {{ $errors->first('file') }}
+                            </span>
+                        @endif
+                    <label class="custom-file-label" for="customFile">ファイル選択...</label>
+                </div>
+                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Upload')}}</button>
+            </form>
+
+            <form method="POST" action="{{ url('/download'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="file">
+                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Download')}}</button>
+            </form>
         </div>
     </div>
 
@@ -55,7 +74,7 @@
         <div class="card-body">
             <h4 class="card-title">{{ __('Edit Contents')}}</h4>
             <p class="card-text">コンテンツは、ページレイアウト全体のうちサイトアイデンティティやナビゲーション部分を含まない領域を担当します。</p>
-            <a href="{{ url('pages/')}}" class="btn btn-primary btn-lg btn-block">{{ __('Edit')}}</a>
+            <a href="{{ url('pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Findex.html')}}" class="btn btn-primary btn-lg btn-block" target="_blank">{{ __('Edit')}}</a>
         </div>
     </div>
 
@@ -64,7 +83,11 @@
         <div class="card-body">
             <h4 class="card-title">{{ __('To Publish')}}</h4>
             <p class="card-text">パブリッシュは、コンテンツを静的なHTMLに書き出します。 動的なHTMLと比べてサーバーへの負荷が軽くなります。</p>
-            <a href="#" class="btn btn-primary btn-lg btn-block">{{ __('Run')}}</a>
+            <form method="POST" action="{{ url('/publish'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="file">
+                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Run')}}</button>
+            </form>
         </div>
     </div>
     <div class="clearfix"></div>

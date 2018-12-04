@@ -178,7 +178,7 @@ class ProjectController extends Controller
 
         chdir($path_current_dir); // 元いたディレクトリへ戻る
 
-        return redirect('projects/' . $project->project_name . '/' . $branch_name)->with('my_status', __('Updated an Project.'));
+        return redirect('projects/' . $project->project_name . '/' . $branch_name)->with('my_status', __('Updated a Project.'));
     }
 
     /**
@@ -192,6 +192,6 @@ class ProjectController extends Controller
         //
         $this->authorize('edit', $project);
         $project->delete();
-        return redirect('/')->with('my_status', __('Deleted an Project.'));
+        return redirect('/')->with('my_status', __('Deleted a Project.'));
     }
 }

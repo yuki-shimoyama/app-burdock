@@ -26,7 +26,7 @@ class StoreProject extends FormRequest
     {
         return [
             'project_name' => 'required|max:191',
-            'git_url' => 'nullable|url|max:400',
+            'git_url' => 'required|nullable|url|max:400',
         ];
     }
 }

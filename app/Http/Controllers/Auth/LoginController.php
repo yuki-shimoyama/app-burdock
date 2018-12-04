@@ -47,8 +47,8 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        // ログインしたら、ユーザー自身のプロフィールページへ移動
-        return redirect('users/' . $user->id)->with('my_status', __('You logged in.'));
+        // ログインしたら、トップページへ移動
+        return redirect('/')->with('my_status', __('You logged in.'));
     }
 
     /**
