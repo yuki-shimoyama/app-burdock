@@ -9,9 +9,17 @@ use App\Project;
 
 class PageController extends Controller
 {
-    public function index(Project $project, $branch_name, $page_name)
+    public function index(Request $request, Project $project, $branch_name)
+    {
+        $page_param = $request->page_path;
+        return view('pages.index', ['project' => $project, 'branch_name' => $branch_name, 'page_param' => $page_param]);
+    }
+
+
+    public function show(Request $request, Project $project, $branch_name)
     {
         //
+        $page_param = $request->page_path;
         $client_resources_dist = realpath(__DIR__.'/../../../public/assets/px2ce_resources');
 
         $project_name = $project->project_name;
@@ -22,7 +30,7 @@ class PageController extends Controller
         $px2ce_client_resources = json_decode($result, true);
         chdir($path_current_dir); // 元いたディレクトリへ戻る
 
-        return view('pages.index', ['project' => $project, 'branch_name' => $branch_name, 'page_name' => $page_name], compact('px2ce_client_resources'));
+        return view('pages.show', ['project' => $project, 'branch_name' => $branch_name, 'page_param' => $page_param], compact('px2ce_client_resources'));
     }
 
 

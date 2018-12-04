@@ -74,7 +74,7 @@
         <div class="card-body">
             <h4 class="card-title">{{ __('Edit Contents')}}</h4>
             <p class="card-text">コンテンツは、ページレイアウト全体のうちサイトアイデンティティやナビゲーション部分を含まない領域を担当します。</p>
-            <a href="{{ url('pages/')}}" class="btn btn-primary btn-lg btn-block">{{ __('Edit')}}</a>
+            <a href="{{ url('pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Findex.html')}}" class="btn btn-primary btn-lg btn-block" target="_blank">{{ __('Edit')}}</a>
         </div>
     </div>
 
