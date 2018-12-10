@@ -108,3 +108,8 @@
   height: 100%;
   overflow: auto;
   background-color: #fff; }
+
+.cont_mainmenu {
+    width: 100%;
+    line-height: 200px;
+}

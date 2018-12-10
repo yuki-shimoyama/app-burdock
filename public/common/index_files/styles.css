@@ -192,12 +192,10 @@ body {
     opacity: 0; }
 
 .contents {
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   min-height: 150px;
-  overflow: auto;
   z-index: 50; }
   .contents iframe {
     width: 100%;
