@@ -1,7 +1,7 @@
 @php
     $title = __('Login');
 @endphp
-@extends('layouts.my')
+@extends('layouts.px2')
 
 @section('content')
 <div class="container">

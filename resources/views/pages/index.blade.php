@@ -1,10 +1,10 @@
 @php
 	$title = __('Contents');
 @endphp
-@extends('layouts.pages')
+@extends('layouts.px2')
 
 @section('content')
-	<div class="contents" style="margin: 0px; padding: 0px; position: fixed; left: 0px; top: 33px; right: 0px; height: 700px;">
+	<div class="contents" style="margin: 0px; padding: 0px; position: fixed; left: 0px; top: 0px; right: 0px; height: 100vh;">
 		<div class="container" data-original-title="" title="">
 			<h1 data-original-title="" title="">コンテンツ</h1>
 		</div>
@@ -27,13 +27,13 @@
 						<div class="cont_page_info clearfix" data-original-title="" title="">
 							<div>
 								<div class="cont_page_info-prop">
-									<span class="selectable">ホーム (/index.html)</span>
+									<span class="selectable">ホーム ({{ $page_param }})</span>
 									<span class="px2-editor-type px2-editor-type--html"></span>
 								</div>
 								<div class="cont_page_info-btn">
 									<div class="btn-group">
-										<a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'?page_path='.$page_param) }}" class="btn px2-btn px2-btn--primary px2-btn--lg btn--edit" style="padding-left: 5em; padding-right: 5em;" target="_blank">{{ __('Edit')}}</a>
-										<button type="button" class="btn px2-btn px2-btn--lg btn--preview" data-path="/index.html" href="javascript:;">ブラウザでプレビュー</button>
+										<a href="javascript:void(0);" onclick="window.open('{{ url('/pages/'.$project->project_name.'/'.$branch_name.'?page_path='.$page_param) }}','_blank','width=10000px,height=10000px')" class="btn px2-btn px2-btn--primary px2-btn--lg btn--edit" style="padding-left: 5em; padding-right: 5em;">{{ __('Edit')}}</a>
+										<a href="{{ url('https://prev1.app-burdock.localhost'.$page_param) }}" class="btn px2-btn px2-btn--lg btn--preview" target="_blank">ブラウザでプレビュー</a>
 										<!-- <button type="button" class="btn px2-btn px2-btn--lg btn--resources">リソース</button> -->
 										<button type="button" class="btn px2-btn px2-btn--lg dropdown-toggle" data-toggle="dropdown">
 											<span class="caret"></span>
@@ -90,7 +90,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="preview_window_frame cont_preview" data-original-title="" title="" style="height: 600px;">
+						<div class="preview_window_frame cont_preview" data-original-title="" title="" style="height: 70vh;">
 							<div class="preview_window_frame--inner" data-original-title="" title="">
 								<iframe data-original-title="" title="" src="{{ url('https://prev1.app-burdock.localhost'.$page_param) }}"></iframe>
 							</div>
@@ -119,18 +119,18 @@
 							</div>
 						</div>
 						<!-- /.cont_workspace_search -->
-						<div class="cont_workspace_container" data-original-title="" title="" style="height: 708px; margin-top: 10px;">
+						<div class="cont_workspace_container" data-original-title="" title="" style="height: 100vh; margin-top: 10px;">
 							<div class="cont_sitemap_parent" data-original-title="" title="">
-								<?php echo($page_param); ?>
+
 							</div>
-							<div class="cont_sitemap_broslist" data-original-title="" title="" style="height: 708px;">
+							<div class="cont_sitemap_broslist" data-original-title="" title="" style="height: 100vh;">
 								<ul class="listview">
 									<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Findex.html') }}" class="current">ホーム</a>
 										<ul>
-											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2F') }}" style="font-size: 80%;">はじめに</a></li>
-											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Ftraining%2F') }}" style="font-size: 80%;">編集してみょう</a></li>
-											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Fsamples%2F') }}" style="font-size: 80%;">さまざまな機能</a></li>
-											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Fhelp%2F') }}" style="font-size: 80%;">ヘルプ</a></li>
+											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Findex.html') }}" style="font-size: 80%;">はじめに</a></li>
+											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Ftraining%2Findex.html') }}" style="font-size: 80%;">編集してみょう</a></li>
+											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Fsamples%2Findex.html') }}" style="font-size: 80%;">さまざまな機能</a></li>
+											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Fhelp%2Findex.html') }}" style="font-size: 80%;">ヘルプ</a></li>
 										</ul>
 									 </li>
 								 </ul>

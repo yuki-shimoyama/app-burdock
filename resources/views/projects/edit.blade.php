@@ -1,7 +1,7 @@
 @php
     $title = __('Edit') . ': ' . $project->project_name;
 @endphp
-@extends('layouts.my')
+@extends('layouts.px2')
 @section('content')
 <div class="container">
     <h1>{{ $title }}</h1>

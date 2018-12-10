@@ -252,3 +252,15 @@ body {
     position: relative;
     flex-grow: 1;
     width: 100%; }
+
+/* 追加 */
+#navbarLeftContent {
+    float: left;
+}
+
+a.app_name {
+    text-decoration: none;
+    color: rgb(0, 160, 230);
+    font-weight: bold;
+    font-family: Meiryo, "Hiragino Kaku Gothic ProN", Verdana, sans-serif;
+}

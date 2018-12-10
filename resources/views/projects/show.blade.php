@@ -1,7 +1,7 @@
 @php
     $title = $project->project_name;
 @endphp
-@extends('layouts.my')
+@extends('layouts.px2')
 @section('content')
 <div class="container">
     <h1 id="project-title">{{ $title }}</h1>
@@ -74,7 +74,7 @@
         <div class="card-body">
             <h4 class="card-title">{{ __('Edit Contents')}}</h4>
             <p class="card-text">コンテンツは、ページレイアウト全体のうちサイトアイデンティティやナビゲーション部分を含まない領域を担当します。</p>
-            <a href="{{ url('pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Findex.html')}}" class="btn btn-primary btn-lg btn-block" target="_blank">{{ __('Edit')}}</a>
+            <a href="{{ url('pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Findex.html')}}" class="btn btn-primary btn-lg btn-block">{{ __('Edit')}}</a>
         </div>
     </div>
 

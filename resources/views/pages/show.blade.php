@@ -1,7 +1,7 @@
 @php
 	$title = __('Contents');
 @endphp
-@extends('layouts.preview')
+@extends('layouts.px2_broccoli')
 
 @section('stylesheet')
 <?php
@@ -20,10 +20,8 @@ foreach($px2ce_client_resources['js'] as $value) {
 @endsection
 
 @section('content')
-	<div class="container">
-		<h1 id="post-title">{{ $title }}</h1>
-		<hr>
-		<div id="canvas" style="height:700px;">
+	<div>
+		<div id="canvas" style="height:100vh;">
 		</div>
 
 		<script type="text/javascript">
@@ -92,7 +90,7 @@ foreach($px2ce_client_resources['js'] as $value) {
 						}
 					},
 					'complete': function(){
-						alert('完了しました。');
+						window.open('about:blank','_self').close();
 					},
 					'onClickContentsLink': function( uri, data ){
 						alert('編集: ' + uri);
@@ -107,6 +105,8 @@ foreach($px2ce_client_resources['js'] as $value) {
 					// 初期化完了！
 				}
 			);
+			console.log($(window).width());
+			console.log($(window).height());
 		</script>
 	</div>
 @endsection
