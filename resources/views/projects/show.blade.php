@@ -50,25 +50,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <a href="#" class="px2-btn cont_mainmenu">{{ __('Edit Sitemap')}}</a>
-                    <form method="POST" action="{{ url('/upload'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
-                        @csrf
-                        @method('POST')
-                        <div class="form-group custom-file">
-                            <input type="file" class="custom-file-input @if ($errors->has('file')) is-invalid @endif" name="file" value="{{ old('file') }}" id="customFile" lang="ja">
-                                @if ($errors->has('file'))
-                                    <span class="invalid-feedback" role="alert">
-                                        {{ $errors->first('file') }}
-                                    </span>
-                                @endif
-                        </div>
-                        <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Upload')}}</button>
-                    </form>
-                    <form method="POST" action="{{ url('/download'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="file">
-                        <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Download')}}</button>
-                    </form>
+                    <a href="{{ url('/sitemaps'.'/'.$project->project_name.'/'.$branch_name) }}" class="px2-btn cont_mainmenu">{{ __('Edit Sitemap')}}</a>
                 </div>
                 <div class="col-sm-3">
                     <a href="#" class="px2-btn cont_mainmenu">テーマを編集する</a>
