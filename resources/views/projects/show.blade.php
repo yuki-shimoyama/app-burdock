@@ -1,10 +1,10 @@
 @php
     $title = $project->project_name;
 @endphp
-@extends('layouts.px2')
+@extends('layouts.px2_project')
 @section('content')
 <div class="container">
-    <h1 id="project-title">{{ $title }}</h1>
+    <h1 id="project-title">Project_{{ $title }}</h1>
 
     {{-- 編集・削除ボタン --}}
     @can('edit', $project)

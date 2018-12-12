@@ -2,7 +2,7 @@
     $title = env('APP_NAME');
 @endphp
 
-@extends('layouts.px2')
+@extends('layouts.px2_main')
 @section('title', 'Burdock')
 @section('content')
 <div class="container">

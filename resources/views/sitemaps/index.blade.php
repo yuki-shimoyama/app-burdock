@@ -1,7 +1,7 @@
 @php
 	$title = __('Contents');
 @endphp
-@extends('layouts.px2')
+@extends('layouts.px2_project')
 
 @section('content')
 <div class="container">

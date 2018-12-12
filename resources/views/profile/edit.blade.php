@@ -1,7 +1,7 @@
 @php
     $title = __('Edit').': '.$user->name;
 @endphp
-@extends('layouts.px2')
+@extends('layouts.px2_main')
 @section('content')
 <div class="container">
     <h1>{{ $title }}</h1>

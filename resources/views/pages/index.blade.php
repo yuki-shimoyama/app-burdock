@@ -1,10 +1,10 @@
 @php
 	$title = __('Contents');
 @endphp
-@extends('layouts.px2')
+@extends('layouts.px2_project')
 
 @section('content')
-	<div class="contents" style="margin: 0px; padding: 0px; position: fixed; left: 0px; top: 0px; right: 0px; height: 100vh;">
+	<div class="contents" style="margin: 0px; padding: 0px; left: 0px; top: 0px; right: 0px; height: 100vh;">
 		<div class="container" data-original-title="" title="">
 			<h1 data-original-title="" title="">コンテンツ</h1>
 		</div>
