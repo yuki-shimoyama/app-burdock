@@ -12,7 +12,17 @@ class PageController extends Controller
     public function index(Request $request, Project $project, $branch_name)
     {
         $page_param = $request->page_path;
-        return view('pages.index', ['project' => $project, 'branch_name' => $branch_name, 'page_param' => $page_param]);
+
+        $project_name = $project->project_name;
+        $project_path = get_project_workingtree_dir($project_name, $branch_name);
+
+        $path_current_dir = realpath('.'); // 元のカレントディレクトリを記憶
+        chdir($project_path);
+
+        $data_json = shell_exec('php .px_execute.php '.$page_param.'?PX=px2dthelper.get.all');
+        $current = json_decode($data_json);
+
+        return view('pages.index', ['project' => $project, 'branch_name' => $branch_name, 'page_param' => $page_param], compact('current'));
     }
 
 

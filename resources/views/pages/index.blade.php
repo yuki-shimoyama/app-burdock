@@ -17,7 +17,12 @@
 				</div>
 				<div class="cont_breadcrumb" data-original-title="" title="">
 					<ul>
-						<li><strong>ホーム</strong></li>
+						@if(!$current->navigation_info->breadcrumb_info == null)
+						@foreach($current->navigation_info->breadcrumb_info as $breadcrumb_info)
+						<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$breadcrumb_info->path) }}">{{ $breadcrumb_info->title }}</a></li>
+						@endforeach
+						@endif
+						<li><strong>{{ $current->page_info->title }}</strong></li>
 					</ul>
 				</div>
 			</div>
@@ -121,19 +126,28 @@
 						<!-- /.cont_workspace_search -->
 						<div class="cont_workspace_container" data-original-title="" title="" style="height: 100vh; margin-top: 10px;">
 							<div class="cont_sitemap_parent" data-original-title="" title="">
-
-							</div>
-							<div class="cont_sitemap_broslist" data-original-title="" title="" style="height: 100vh;">
+								@if(!$current->navigation_info->parent_info == null)
 								<ul class="listview">
-									<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Findex.html') }}" class="current">ホーム</a>
+							        <li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$current->navigation_info->parent_info->path) }}"><span class="glyphicon glyphicon-level-up"></span><span>{{ $current->navigation_info->parent_info->title }}</span></a></li>
+							    </ul>
+								@endif
+							</div>
+							<div class="cont_sitemap_broslist" data-original-title="" title="">
+								<ul class="listview">
+								@if(!$current->navigation_info->bros_info == null)
+								@foreach($current->navigation_info->bros_info as $bros_info)
+									<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$bros_info->path) }}" @if ($page_param == $bros_info->path) class="current" @endif>{{ $bros_info->title }}</a>
+									@if(!$current->navigation_info->children_info == null && $page_param == $bros_info->path)
 										<ul>
-											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Findex.html') }}" style="font-size: 80%;">はじめに</a></li>
-											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Ftraining%2Findex.html') }}" style="font-size: 80%;">編集してみょう</a></li>
-											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Fsamples%2Findex.html') }}" style="font-size: 80%;">さまざまな機能</a></li>
-											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Fsample_pages%2Fhelp%2Findex.html') }}" style="font-size: 80%;">ヘルプ</a></li>
+										@foreach($current->navigation_info->children_info as $children_info)
+											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$children_info->path) }}" style="font-size: 80%;">{{ $children_info->title }}</a></li>
+										@endforeach
 										</ul>
-									 </li>
-								 </ul>
+									@endif
+									</li>
+								@endforeach
+								@endif
+								</ul>
 							</div>
 							<div class="cont_sitemap_search" data-original-title="" title="" style="display: none;"></div>
 						</div>
