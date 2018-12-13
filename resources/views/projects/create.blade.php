@@ -1,7 +1,7 @@
 @php
     $title = __('Create Project');
 @endphp
-@extends('layouts.my')
+@extends('layouts.px2_main')
 @section('content')
 <div class="container">
     <h1>{{ $title }}</h1>
