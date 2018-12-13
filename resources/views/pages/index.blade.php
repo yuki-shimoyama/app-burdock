@@ -4,6 +4,7 @@
 @extends('layouts.px2_project')
 
 @section('content')
+
 	<div class="contents" style="margin: 0px; padding: 0px; left: 0px; top: 0px; right: 0px; height: 100vh;">
 		<div class="container" data-original-title="" title="">
 			<h1 data-original-title="" title="">コンテンツ</h1>
@@ -17,7 +18,7 @@
 				</div>
 				<div class="cont_breadcrumb" data-original-title="" title="">
 					<ul>
-						@if(!$current->navigation_info->breadcrumb_info == null)
+						@if($current->navigation_info->breadcrumb_info !== false)
 						@foreach($current->navigation_info->breadcrumb_info as $breadcrumb_info)
 						<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$breadcrumb_info->path) }}">{{ $breadcrumb_info->title }}</a></li>
 						@endforeach
@@ -32,7 +33,7 @@
 						<div class="cont_page_info clearfix" data-original-title="" title="">
 							<div>
 								<div class="cont_page_info-prop">
-									<span class="selectable">ホーム ({{ $page_param }})</span>
+									<span class="selectable">ホーム ({{ $current->page_info->path }})</span>
 									<span class="px2-editor-type px2-editor-type--html"></span>
 								</div>
 								<div class="cont_page_info-btn">
@@ -126,21 +127,21 @@
 						<!-- /.cont_workspace_search -->
 						<div class="cont_workspace_container" data-original-title="" title="" style="height: 100vh; margin-top: 10px;">
 							<div class="cont_sitemap_parent" data-original-title="" title="">
-								@if(!$current->navigation_info->parent_info == null)
+								@if($current->navigation_info->parent_info !== false)
 								<ul class="listview">
-							        <li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$current->navigation_info->parent_info->path) }}"><span class="glyphicon glyphicon-level-up"></span><span>{{ $current->navigation_info->parent_info->title }}</span></a></li>
+							        <li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$current->navigation_info->parent_info->path.'&page_id='.$current->navigation_info->parent_info->id) }}"><span class="glyphicon glyphicon-level-up"></span><span>{{ $current->navigation_info->parent_info->title }}</span></a></li>
 							    </ul>
 								@endif
 							</div>
 							<div class="cont_sitemap_broslist" data-original-title="" title="">
 								<ul class="listview">
-								@if(!$current->navigation_info->bros_info == null)
+								@if($current->navigation_info->bros_info !== false)
 								@foreach($current->navigation_info->bros_info as $bros_info)
-									<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$bros_info->path) }}" @if ($page_param == $bros_info->path) class="current" @endif>{{ $bros_info->title }}</a>
-									@if(!$current->navigation_info->children_info == null && $page_param == $bros_info->path)
+									<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$bros_info->path.'&page_id='.$bros_info->id) }}" @if ($page_param == $bros_info->path) class="current" @endif>{{ $bros_info->title }}</a>
+									@if($current->navigation_info->children_info !== false && $page_param === $bros_info->path)
 										<ul>
 										@foreach($current->navigation_info->children_info as $children_info)
-											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$children_info->path) }}" style="font-size: 80%;">{{ $children_info->title }}</a></li>
+											<li><a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.$children_info->path.'&page_id='.$children_info->id) }}" style="font-size: 80%;">{{ $children_info->title }}</a></li>
 										@endforeach
 										</ul>
 									@endif
