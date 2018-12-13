@@ -48,6 +48,7 @@ class PageController extends Controller
     public function gpi(Request $request, Project $project, $branch_name)
     {
         //
+        $page_param = $request->page_path;
         $project_name = $project->project_name;
         $project_path = get_project_workingtree_dir($project_name, $branch_name);
 
@@ -71,7 +72,7 @@ class PageController extends Controller
         $file = $current->realpath_homedir.'_sys/ram/data/'.$tmpFileName;
         file_put_contents($file, $request->data);
 
-        $result = shell_exec('php .px_execute.php /sample_pages/?PX=px2dthelper.px2ce.gpi\&data_filename='.$tmpFileName);
+        $result = shell_exec('php .px_execute.php '.$page_param.'?PX=px2dthelper.px2ce.gpi\&data_filename='.$tmpFileName);
 
         header('Content-type: text/json');
         echo $result;
