@@ -71,8 +71,8 @@ foreach($px2ce_client_resources['js'] as $value) {
 						"method": 'post',
 						'data': {
 							'data':JSON.stringify(input),
-							 _token: '{{ csrf_token() }}'
-						 },
+							_token: '{{ csrf_token() }}'
+						},
 						"success": function(data){
 							callback(data);
 							console.log(data);
