@@ -38,7 +38,7 @@
 								</div>
 								<div class="cont_page_info-btn">
 									<div class="btn-group">
-										<a href="javascript:void(0);" onclick="window.open('{{ url('/pages/'.$project->project_name.'/'.$branch_name.'?page_path='.$page_param) }}','_blank','width=10000px,height=10000px')" class="btn px2-btn px2-btn--primary px2-btn--lg btn--edit" style="padding-left: 5em; padding-right: 5em;">{{ __('Edit')}}</a>
+										<a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'?page_path='.$page_param) }}" class="btn px2-btn px2-btn--primary px2-btn--lg btn--edit" style="padding-left: 5em; padding-right: 5em;" target="_blank">{{ __('Edit')}}</a>
 										<a href="{{ url('https://prev1.app-burdock.localhost'.$page_param) }}" class="btn px2-btn px2-btn--lg btn--preview" target="_blank">ブラウザでプレビュー</a>
 										<!-- <button type="button" class="btn px2-btn px2-btn--lg btn--resources">リソース</button> -->
 										<button type="button" class="btn px2-btn px2-btn--lg dropdown-toggle" data-toggle="dropdown">
