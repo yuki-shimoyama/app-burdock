@@ -48,5 +48,6 @@ Route::post('download/{project}/{branch_name}', 'SitemapController@download');
 Route::get('publish/{project}/{branch_name}', 'PublishController@publish');
 
 Route::get('pages/{project}/{branch_name}/index.html', 'PageController@index');
+Route::post('pages/{project}/{branch_name}/ajax', 'PageController@ajax');
 Route::get('pages/{project}/{branch_name}', 'PageController@show');
 Route::post('pages/{project}/{branch_name}', 'PageController@gpi');
