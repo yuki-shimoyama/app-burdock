@@ -98,7 +98,39 @@
 						</div>
 						<div class="preview_window_frame cont_preview" data-original-title="" title="" style="height: 70vh;">
 							<div class="preview_window_frame--inner" data-original-title="" title="">
-								<iframe data-original-title="" title="" src="{{ url('https://prev1.app-burdock.localhost'.$page_param) }}"></iframe>
+								<script>
+								var jsBase64 = '{{ base64_encode(file_get_contents('../resources/views/pages/js/script.js')) }}';
+
+								// windowロードイベント
+								window.onload = function() {
+									// iframeのwindowオブジェクトを取得
+									var ifrm = document.getElementById('ifrm').contentWindow;
+									// 外部サイトにメッセージを投げる
+									ifrm.postMessage({'scriptUrl':'data:text/javascript;base64,'+encodeURIComponent(jsBase64)}, 'https://prev1.app-burdock.localhost');
+								};
+								// メッセージ受信イベント
+								window.addEventListener('message', receiveMessage, false);
+								function receiveMessage(event) {
+									// オリジンがhttps://prev1.app-burdock.localhostではなかった場合終了
+									if (event.origin !== "https://prev1.app-burdock.localhost") {
+										return;
+									};
+									// 受信したイベントデータをajaxでコントローラーに送信
+									var decodeEventData = decodeURIComponent(escape(atob(event.data)));
+									$.ajax({
+										url: "/pages/{{ $project->project_name }}/{{ $branch_name }}/ajax?page_path={{ $page_param }}",
+										type: 'post',
+										data : {
+											"path_path" : JSON.stringify(decodeEventData),
+											_token : '{{ csrf_token() }}'
+										},
+									}).done(function(data){
+										// ajaxで取得してきたパスとIDでページ遷移
+										window.location.href = 'index.html?page_path='+data.path+'&page_id='+data.id;
+									});
+								};
+								</script>
+								<iframe id="ifrm" data-original-title="" title="" src="{{ url('https://prev1.app-burdock.localhost'.$page_param) }}"></iframe>
 							</div>
 						</div>
 					</div>
