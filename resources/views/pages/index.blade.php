@@ -1,5 +1,5 @@
 @php
-	$title = __('Contents');
+	$title = __('Contents').' - '.$current->page_info->title;
 @endphp
 @extends('layouts.px2_project')
 
