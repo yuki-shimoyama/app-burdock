@@ -33,13 +33,13 @@
 						<div class="cont_page_info clearfix" data-original-title="" title="">
 							<div>
 								<div class="cont_page_info-prop">
-									<span class="selectable">ホーム ({{ $current->page_info->path }})</span>
-									<span class="px2-editor-type px2-editor-type--html"></span>
+									<span class="selectable">{{ $current->page_info->title }} ({{ $current->page_info->path }})</span>
+									<span class="px2-editor-type px2-editor-type--@if ($editor_type === 'html'){{ 'html' }}@elseif ($editor_type === 'html.gui'){{ 'html-gui' }}@elseif ($editor_type === 'md'){{ 'md' }}@else{{ 'not-exists' }}@endif"></span>
 								</div>
 								<div class="cont_page_info-btn">
 									<div class="btn-group">
-										<a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'?page_path='.$page_param) }}" class="btn px2-btn px2-btn--primary px2-btn--lg btn--edit" style="padding-left: 5em; padding-right: 5em;" target="_blank">{{ __('Edit')}}</a>
-										<a href="{{ url('https://prev1.app-burdock.localhost'.$page_param) }}" class="btn px2-btn px2-btn--lg btn--preview" target="_blank">ブラウザでプレビュー</a>
+										<a href="{{ url('/pages/'.$project->project_name.'/'.$branch_name.'?page_path='.$page_param) }}" class="btn px2-btn px2-btn--primary px2-btn--lg btn--edit" style="padding-left: 5em; padding-right: 5em; font: inherit;" target="_blank">{{ __('Edit')}}</a>
+										<a href="{{ url('https://prev1.app-burdock.localhost'.$page_param) }}" class="btn px2-btn px2-btn--lg btn--preview" target="_blank" style="font: inherit;">ブラウザでプレビュー</a>
 										<!-- <button type="button" class="btn px2-btn px2-btn--lg btn--resources">リソース</button> -->
 										<button type="button" class="btn px2-btn px2-btn--lg dropdown-toggle" data-toggle="dropdown">
 											<span class="caret"></span>
