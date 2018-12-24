@@ -22,9 +22,11 @@ class PageController extends Controller
 
         $data_json = shell_exec('php .px_execute.php /?PX=px2dthelper.get.all\&filter=false\&path='.$page_id);
         $current = json_decode($data_json);
+        $data_json = shell_exec('php .px_execute.php /?PX=px2dthelper.check_editor_mode\&path='.$page_param);
+        $editor_type = json_decode($data_json);
         chdir($path_current_dir); // 元いたディレクトリへ戻る
 
-        return view('pages.index', ['project' => $project, 'branch_name' => $branch_name, 'page_param' => $page_param], compact('current'));
+        return view('pages.index', ['project' => $project, 'branch_name' => $branch_name, 'page_param' => $page_param], compact('current', 'editor_type'));
     }
 
 
