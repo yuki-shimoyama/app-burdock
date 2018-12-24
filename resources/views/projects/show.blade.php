@@ -1,10 +1,10 @@
 @php
     $title = $project->project_name;
 @endphp
-@extends('layouts.my')
+@extends('layouts.px2_project')
 @section('content')
 <div class="container">
-    <h1 id="project-title">{{ $title }}</h1>
+    <h1 id="project-title">Project_{{ $title }}</h1>
 
     {{-- 編集・削除ボタン --}}
     @can('edit', $project)
@@ -21,7 +21,7 @@
         </div>
     @endcan
 
-    {{-- 記事内容 --}}
+    {{-- プロジェクトの内容 --}}
     <dl class="row">
         <dt class="col-md-2">{{ __('Author') }}:</dt>
         <dd class="col-md-10">
@@ -41,57 +41,201 @@
         </dd>
     </dl>
     <hr>
-    <div class="card ml-4 float-left" style="width: 20rem;">
-    <img class="card-img-top" src="http://placehold.jp/318x180.png" alt="Card image cap">
-        <div class="card-body">
-            <h4 class="card-title">{{ __('Edit Sitemap')}}</h4>
-            <p class="card-text">サイトマップは、サイト全体のページ構成を定義する概念です。CSVまたはMicrosoft Excelのファイル形式で編集できます。</p>
-            <form method="POST" action="{{ url('/upload'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
-                @csrf
-                @method('POST')
-                <div class="form-group custom-file">
-                    <input type="file" class="form-control custom-file-input @if ($errors->has('file')) is-invalid @endif" name="file" value="{{ old('file') }}" id="customFile" lang="ja">
-                        @if ($errors->has('file'))
-                            <span class="invalid-feedback" role="alert">
-                                {{ $errors->first('file') }}
-                            </span>
-                        @endif
-                    <label class="custom-file-label" for="customFile">ファイル選択...</label>
+    <div class="contents">
+        <div class="cont_info"></div>
+        <div class="cont_maintask_ui">
+            <h2>基本的な手順</h2>
+            <div>
+                {{ Auth::user()->project_name }}
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <a href="{{ url('/sitemaps'.'/'.$project->project_name.'/'.$branch_name) }}" class="px2-btn cont_mainmenu">{{ __('Edit Sitemap')}}</a>
                 </div>
-                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Upload')}}</button>
-            </form>
-
-            <form method="POST" action="{{ url('/download'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="file">
-                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Download')}}</button>
-            </form>
+                <div class="col-sm-3">
+                    <a href="#" class="px2-btn cont_mainmenu">テーマを編集する</a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="{{ url('pages/'.$project->project_name.'/'.$branch_name.'/index.html?page_path='.'%2Findex.html')}}" class="px2-btn cont_mainmenu">{{ __('Edit Contents')}}</a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="{{ url('/publish'.'/'.$project->project_name.'/'.$branch_name) }}" class="px2-btn cont_mainmenu">{{ __('To Publish')}}</a>
+                </div>
+            </div><!-- / .row -->
+            <ul class="px2-horizontal-list px2-horizontal-list--right">
+                <li><a href="javascript:px.getCurrentProject().open();" class="px2-link px2-link--burette">フォルダを開く</a></li>
+                <li><a href="javascript:px.openInBrowser();" class="px2-link px2-link--burette">ブラウザで開く</a></li>
+                <li><a href="javascript:px.openInTextEditor( contApp.pj.get('path') );" class="px2-link px2-link--burette">外部テキストエディタで開く</a></li>
+                <li><a href="javascript:px.openInGitClient( contApp.pj.get('path') );" class="px2-link px2-link--burette">外部Gitクライアントで開く</a></li>
+                <li><a href="javascript:px.openInTerminal( contApp.pj.get('path') );" class="px2-link px2-link--burette">コマンドラインで開く</a></li>
+            </ul>
+            <ul class="px2-horizontal-list px2-horizontal-list--right">
+                <li><a href="javascript:px.subapp('fncs/config/index.html');" class="px2-link px2-link--burette">config.php を編集する</a></li>
+                <li><a href="javascript:px.subapp('fncs/composer/index.html');" class="px2-link px2-link--burette">composer を操作する</a></li>
+            </ul>
         </div>
+        <div class="alert alert-info">Hint! : <span class="cont_hint">Pickles 2 は PHP製のフレームワークです。Apache + PHP の環境で動作します。</span></div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>README</h2>
+                <div class="cont_readme_content selectable">
+                    <h1 id="get-start-pickles-2-">Get start "Pickles 2" !</h1>
+                    <p><a href="http://pickles2.pxt.jp/">Pickles 2</a> は、静的で大きなウェブサイトを効率よく構築できる オープンソースのHTML生成ツールです。</p>
+                    <ul>
+                        <li>サイトマップ(ページリスト)をCSV形式で管理し、グローバルナビゲーションの生成やカレント処理、パンくず生成、タイトルやメタタグの出力などを自動化します。</li>
+                        <li>コンテンツ(ページ固有の内容部分)と、テーマ(ヘッダ、フッタ、ナビゲーションなどの共通部分)に分けてコーディングします。テーマはサイト全体を通して一元化された共通コードから自動生成します。</li>
+                        <li>データベース不要、PHP5.4以上 が動くウェブサーバーに手軽に導入できます。</li>
+                        <li>Markdown や SCSS などの文法を動的に導入できます。</li>
+                        <li>簡単なコマンドで、スタティックなHTMLファイルを出力(パブリッシュ)できます。</li>
+                        <li>Composer 導入により、機能の追加、拡張が手軽にできるようになりました。</li>
+                    </ul>
+                    <h2 id="-system-requirement">システム要件 - System Requirement</h2>
+                    <ul>
+                        <li>Linux系サーバ または Windowsサーバ</li>
+                        <li>Apache1.3以降
+                            <ul>
+                                <li>mod_rewrite が利用可能であること</li>
+                                <li>.htaccess が利用可能であること</li>
+                            </ul>
+                        </li>
+                        <li>PHP5.4以上
+                            <ul>
+                                <li>mb_string が有効に設定されていること</li>
+                                <li>safe_mode が無効に設定されていること</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h2 id="-license">ライセンス - License</h2>
+                    <p>Copyright (c)2001-2018 Tomoya Koyanagi, and Pickles 2 Project<br>MIT License <a href="https://opensource.org/licenses/mit-license.php">https://opensource.org/licenses/mit-license.php</a></p>
+                    <h2 id="-author">作者 - Author</h2>
+                    <ul>
+                        <li>Tomoya Koyanagi <a href="mailto:tomk79@gmail.com">tomk79@gmail.com</a></li>
+                        <li>website: <a href="http://www.pxt.jp/">http://www.pxt.jp/</a></li>
+                        <li>Twitter: @tomk79 <a href="http://twitter.com/tomk79/">http://twitter.com/tomk79/</a></li>
+                    </ul>
+                </div>
+                <h2>Project Information</h2>
+                <div class="px2-responsive">
+                    <table class="px2-table" style="width:100%; table-layout: fixed;">
+                        <colgroup><col width="30%"><col width="70%"></colgroup>
+                        <tbody>
+                            <tr>
+                                <th>Project Name</th>
+                                <td class="tpl_name selectable">test</td>
+                            </tr>
+                            <tr>
+                                <th>Path</th>
+                                <td class="tpl_path selectable">/Users/yuki.shimoyama/Desktop/marble_project/プロジェクト/test</td>
+                            </tr>
+                            <tr>
+                                <th>Home Directory</th>
+                                <td class="tpl_home_dir selectable">px-files/</td>
+                            </tr>
+                            <tr>
+                                <th>Entry Script</th>
+                                <td class="tpl_entry_script selectable">.px_execute.php</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>Optional</h3>
+                <div class="px2-responsive">
+                    <table class="px2-table" style="width:100%; table-layout: fixed;">
+                        <colgroup><col width="30%"><col width="70%"></colgroup>
+                        <tbody>
+                            <tr>
+                                <th>External Preview Server Origin</th>
+                                <td class="tpl_external_preview_server_origin selectable"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><button class="px2-btn" onclick="contApp.editProject(); return false;">プロジェクト情報を編集する</button></p>
+                <h2>Project Status</h2>
+                <div class="px2-responsive">
+                    <table class="px2-table tpl_status_table" style="width:100%; table-layout: fixed;">
+                        <tr>
+                            <th>api.available</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>api.version</th>
+                            <td>2.0.39</td>
+                        </tr>
+                        <tr>
+                            <th>api.is_sitemap_loaded</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>px2dthelper.available</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>px2dthelper.version</th>
+                            <td>2.0.11</td>
+                        </tr>
+                        <tr>
+                            <th>px2dthelper.is_sitemap_loaded</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>pathExists</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>pathContainsFileCount</th>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <th>entryScriptExists</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>homeDirExists</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>confFileExists</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>px2DTConfFileExists</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>composerJsonExists</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>vendorDirExists</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>isPxStandby</th>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <th>gitDirExists</th>
+                            <td>false</td>
+                        </tr>
+                        <tr>
+                            <th>guiEngineName</th>
+                            <td>broccoli-html-editor</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div><!-- /.row -->
+        <p><button class="px2-btn" onclick="px.deselectProject(); px.subapp(); return false;">ダッシュボードへ戻る</button></p>
+        <p><button class="px2-btn" onclick="px.healthCheck(); return false;">診断ツール</button></p>
+        <p><button class="px2-btn px2-btn--danger" onclick="if(confirm('このプロジェクトを削除してよろしいですか？')){px.deleteProject( px.getCurrentProject().projectId, function(){px.subapp();} );} return false;">このプロジェクトを削除</button></p>
+        <hr>
+        <address class="center">(C)Pickles 2 Project.</address>
     </div>
+</div>
 
-    <div class="card ml-4 float-left" style="width: 20rem;">
-    <img class="card-img-top" src="http://placehold.jp/318x180.png" alt="Card image cap">
-        <div class="card-body">
-            <h4 class="card-title">{{ __('Edit Contents')}}</h4>
-            <p class="card-text">コンテンツは、ページレイアウト全体のうちサイトアイデンティティやナビゲーション部分を含まない領域を担当します。</p>
-            <a href="{{ url('pages/')}}" class="btn btn-primary btn-lg btn-block">{{ __('Edit')}}</a>
-        </div>
-    </div>
 
-    <div class="card ml-4 float-left" style="width: 20rem;">
-    <img class="card-img-top" src="http://placehold.jp/318x180.png" alt="Card image cap">
-        <div class="card-body">
-            <h4 class="card-title">{{ __('To Publish')}}</h4>
-            <p class="card-text">パブリッシュは、コンテンツを静的なHTMLに書き出します。 動的なHTMLと比べてサーバーへの負荷が軽くなります。</p>
-            <form method="POST" action="{{ url('/publish'.'/'.$project->project_name.'/'.$branch_name) }}" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="file">
-                <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block mt-2">{{ __('Run')}}</button>
-            </form>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <hr>
+<div class="container">
     <dl class="row">
         <dt class="col-md-2">{{ __('Project Name') }}:</dt>
         <dd class="col-md-10">{{ $bd_object->config->name }}</dd>

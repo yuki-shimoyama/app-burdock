@@ -10,6 +10,12 @@ use App\Http\Requests\StoreSitemap;
 class SitemapController extends Controller
 {
     //
+    public function index(Project $project, $branch_name)
+    {
+        //
+        return view('sitemaps.index', ['project' => $project, 'branch_name' => $branch_name]);
+    }
+
     public function upload(StoreSitemap $request, Project $project, $branch_name)
     {
         //
@@ -23,7 +29,7 @@ class SitemapController extends Controller
             echo "failed to copy $file...\n";
         }
 
-        return redirect('projects/' . $project_name . '/' . $branch_name)->with('my_status', __('Updated a Sitemap.'));
+        return redirect('sitemaps/' . $project_name . '/' . $branch_name)->with('my_status', __('Updated a Sitemap.'));
     }
 
     public function download(Request $request, Project $project, $branch_name)
